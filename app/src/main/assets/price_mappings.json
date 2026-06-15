@@ -1,0 +1,17 @@
+{
+  "states": {
+    "Andhra Pradesh": 0, "Arunachal Pradesh": 1, "Assam": 2, "Bihar": 3, "Chhattisgarh": 4, "Goa": 5, "Gujarat": 6, "Haryana": 7, "Himachal Pradesh": 8, "Jharkhand": 9, "Karnataka": 10, "Kerala": 11, "Madhya Pradesh": 12, "Maharashtra": 13, "Manipur": 14, "Meghalaya": 15, "Mizoram": 16, "Nagaland": 17, "Odisha": 18, "Punjab": 19, "Rajasthan": 20, "Sikkim": 21, "Tamil Nadu": 22, "Telangana": 23, "Tripura": 24, "Uttar Pradesh": 25, "Uttarakhand": 26, "West Bengal": 27, "Delhi": 28, "Jammu and Kashmir": 29, "Ladakh": 30, "Puducherry": 31, "Chandigarh": 32, "Andaman and Nicobar Islands": 33, "Lakshadweep": 34, "Dadra and Nagar Haveli and Daman and Diu": 35
+  },
+  "districts": {
+    "Chennai": 0, "Coimbatore": 1, "Madurai": 2, "Nagapattinam": 3, "Salem": 4, "Trichy": 5, "Thanjavur": 6, "Erode": 7, "Tirunelveli": 8, "Anantapur": 9, "Chittoor": 10, "Guntur": 11, "Krishna": 12, "Kurnool": 13, "Bangalore": 14, "Mysore": 15, "Hyderabad": 16, "Pune": 17, "Nagpur": 18, "Jaipur": 19, "Lucknow": 20, "Kolkata": 21, "Patna": 22, "Ahmedabad": 23
+  },
+  "markets": {
+    "Nagapattinam Market": 0, "Sirkazhi Market": 1, "Mayiladuthurai Market": 2, "Vedaranyam Market": 3, "Chennai Yard": 4, "Coimbatore Market": 5, "Madurai Yard": 6, "Guntur Market": 7, "Ahmedabad Yard": 8, "Bangalore Yard": 9, "Pune Mandi": 10
+  },
+  "commodities": {
+    "Rice": 0, "Wheat": 1, "Maize": 2, "Cotton": 3, "Sugarcane": 4, "Groundnut": 5, "Soybean": 6, "Tomato": 7, "Potato": 8, "Onion": 9, "Chilli": 10, "Brinjal": 11, "Cabbage": 12, "Cauliflower": 13, "Banana": 14, "Mango": 15, "Coconut": 16, "Arecanut": 17, "Turmeric": 18, "Ginger": 19, "Mustard": 20, "Sunflower": 21, "Bajra": 22, "Jowar": 23, "Ragi": 24, "Blackgram": 25, "Greengram": 26, "Redgram": 27, "Horsegram": 28, "Sesamum": 29, "Cashew": 30, "Tea": 31, "Coffee": 32, "Rubber": 33, "Apple": 34, "Orange": 35, "Papaya": 36, "Guava": 37, "Pomegranate": 38, "Jackfruit": 39, "Lemon": 40, "Watermelon": 41, "Muskmelon": 42, "Cucumber": 43, "Beans": 44, "Peas": 45, "Carrot": 46, "Beetroot": 47, "Pumpkin": 48, "Bottle Gourd": 49, "Bitter Gourd": 50, "Drumstick": 51
+  },
+  "varieties": {
+    "Common": 0, "Hybrid": 1
+  }
+}

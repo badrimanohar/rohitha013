@@ -1,0 +1,94 @@
+<resources>
+    <string name="app_name">AgriNova</string>
+    <string name="tagline">Smart Solutions for Smart Farmers</string>
+    <string name="welcome_title">Welcome to AgriNova</string>
+    <string name="welcome_subtitle">Empowering Farmers with Technology</string>
+    <string name="get_started">Get Started</string>
+    <string name="select_language">Select Language</string>
+    <string name="continue_text">Continue</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="full_name">Full Name</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="email">Email Address</string>
+    <string name="location">Village/Location</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="already_have_account">Already have an account? Login</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="create_new_account">Create New Account</string>
+    <string name="disease_detection_title">Crop Disease Detection</string>
+    <string name="upload_crop_image">Upload Crop Image</string>
+    <string name="analyze_detect">Analyze &amp; Detect Disease</string>
+    <string name="analysis_result">Analysis Result</string>
+    <string name="sample_result">Disease Detected: Tomato Leaf Blight</string>
+    <string name="tap_to_upload">Tap to upload photo</string>
+    <string name="full_screen_image">Full Screen Image</string>
+    <string name="close">Close</string>
+    <string name="ask_community">Ask Community for Help</string>
+
+    <!-- Dashboard Strings -->
+    <string name="welcome_farmer">Welcome back, %1$s 👋</string>
+    <string name="feature_coming_soon">Feature coming soon</string>
+    <string name="logging_out">Logging out...</string>
+
+    <!-- Login/Signup Validation & Errors -->
+    <string name="error_all_fields">Please enter all fields</string>
+    <string name="error_invalid_email">Invalid email format</string>
+    <string name="error_user_not_found">User account not found</string>
+    <string name="error_invalid_credentials">Invalid email or password</string>
+    <string name="error_network">Network failure. Check your connection.</string>
+    <string name="error_login_failed">Login failed. Try again.</string>
+    <string name="login_successful">Login Successful</string>
+    <string name="reset_link_sent">Reset link sent to %1$s</string>
+    <string name="error_generic">Error: %1$s</string>
+    <string name="enter_email_reset">Enter email to reset password</string>
+    <string name="email_required_reset">Email required for reset</string>
+    <string name="signup_success_login">Account created successfully. Please login.</string>
+    <string name="error_email_registered">Email already registered. Please login.</string>
+    <string name="error_weak_password">Password too weak. Use at least 6 characters.</string>
+    <string name="error_signup_failed">Signup failed: %1$s</string>
+    <string name="error_firestore_fail">Firestore store failed</string>
+    <string name="required">Required</string>
+    <string name="invalid_mobile">Invalid mobile</string>
+    <string name="min_characters">Min 6 characters required</string>
+    <string name="passwords_do_not_match">Passwords do not match</string>
+    <string name="select_language_toast">Please select a language</string>
+
+    <!-- Detection Strings -->
+    <string name="error_select_image">Please select or capture a crop image first</string>
+    <string name="error_image_small">Image too small. Please provide a high-quality photo.</string>
+    <string name="model_not_ready">Model not ready. Please wait.</string>
+    <string name="blurry_image_detected">Blurry Image Detected</string>
+    <string name="blurry_image_desc">Please upload a clearer crop image for accurate detection.</string>
+    <string name="invalid_crop_image">Invalid Image Detected</string>
+    <string name="invalid_crop_desc">Please upload a clear image of a crop plant, crop leaf, stem, fruit, or agricultural plant. Human photos, documents, screenshots, pages, and other non-crop images are not supported.</string>
+    <string name="validation_status_valid">Valid Crop Image ✓</string>
+    <string name="validation_status_invalid">Invalid Crop Image ✗</string>
+    <string name="invalid_image_detected">Invalid Image Detected. Please upload a clear image of a crop plant, crop leaf, stem, fruit, or agricultural plant. Human photos, documents, screenshots, pages, and other non-crop images are not supported.</string>
+    <string name="error_dark_image">Image too dark. Please use a well-lit photo.</string>
+    <string name="error_multiple_objects">Multiple unrelated objects detected. Please focus on the crop.</string>
+    <string name="prediction_failure">Prediction failure. Please try again.</string>
+    <string name="healthy_crop_detected">Healthy Crop Detected</string>
+    <string name="ai_confidence">AI Confidence: %1$s</string>
+    <string name="detected_crop">Detected Crop: %1$s</string>
+    <string name="firebase_sync_success">Data stored in Firebase successfully</string>
+    <string name="firebase_sync_fail">Upload failed: %1$s</string>
+    <string name="firebase_storage_fail">Firebase Upload failed</string>
+    <string name="need_help_community">Need help! AI detected %1$s on my %2$s crop. %3$s</string>
+    <string name="community_suggestion">Suggestions?</string>
+    <string name="image_load_failed">Image load failed</string>
+    <string name="camera_failed">Camera failed</string>
+    <string name="quality_grade">Quality: %1$s</string>
+    <string name="market_price">Market Price: %1$s</string>
+    <string name="joined_community">Joined %1$s</string>
+    <string name="unable_open_chat">Unable to open chat</string>
+
+    <string name="save_details">Save Details</string>
+    <string name="saving">Saving...</string>
+    <string name="profile_updated">Profile Updated Successfully</string>
+    <string name="analyzing_image">Analyzing Image...</string>
+    <string name="disease_description">DISEASE DESCRIPTION</string>
+</resources>

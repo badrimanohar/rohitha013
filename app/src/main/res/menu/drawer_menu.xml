@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@android:drawable/ic_menu_today"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/nav_crop_advisory"
+            android:icon="@android:drawable/ic_menu_help"
+            android:title="Crop Advisory" />
+        <item
+            android:id="@+id/nav_crop_health"
+            android:icon="@android:drawable/ic_menu_camera"
+            android:title="Crop Health" />
+        <item
+            android:id="@+id/nav_weather"
+            android:icon="@android:drawable/ic_menu_day"
+            android:title="Weather Updates" />
+        <item
+            android:id="@+id/nav_market"
+            android:icon="@android:drawable/ic_menu_compass"
+            android:title="Market Prices" />
+        <item
+            android:id="@+id/nav_community"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="Community" />
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@android:drawable/ic_menu_recent_history"
+            android:title="Detection History" />
+        <item
+            android:id="@+id/nav_quality_history"
+            android:icon="@android:drawable/ic_menu_sort_by_size"
+            android:title="Quality History" />
+    </group>
+
+    <item android:title="Services">
+        <menu>
+            <item
+                android:id="@+id/nav_soil"
+                android:icon="@android:drawable/ic_menu_edit"
+                android:title="Soil Health" />
+            <item
+                android:id="@+id/nav_equipment"
+                android:icon="@android:drawable/ic_menu_manage"
+                android:title="Equipment" />
+        </menu>
+    </item>
+
+    <item android:title="Account">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@android:drawable/ic_menu_preferences"
+                android:title="Settings" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@android:drawable/ic_lock_power_off"
+                android:title="Logout" />
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "373379809848",
+    "project_id": "agrinova-9236c",
+    "storage_bucket": "agrinova-9236c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373379809848:android:f04f12071c443f53135ccd",
+        "android_client_info": {
+          "package_name": "com.example.agrinova"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKfJ0M40hVZBR4kk8shCNc68BBjDn_SGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
