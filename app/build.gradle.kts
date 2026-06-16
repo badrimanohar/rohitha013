@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.example.agrinova"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -41,6 +41,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        mlModelBinding = false
     }
 
     packaging {
@@ -70,9 +71,14 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
-    // TensorFlow Lite (Play Services version to avoid namespace conflicts)
-    implementation("com.google.android.gms:play-services-tflite-java:16.5.0")
-    implementation("com.google.android.gms:play-services-tflite-support:16.5.0")
+    // TensorFlow Lite (Standard for existing code compatibility)
+    implementation("org.tensorflow:tensorflow-lite:2.16.1")
+    implementation("org.tensorflow:tensorflow-lite-support:0.4.4") {
+        exclude(group = "org.tensorflow", module = "tensorflow-lite-support-api")
+    }
+    compileOnly("org.tensorflow:tensorflow-lite-support-api:0.4.4")
+
+    implementation("org.tensorflow:tensorflow-lite-gpu:2.16.1")
     implementation("org.tensorflow:tensorflow-lite-metadata:0.4.4")
 
     // Image Loading

@@ -1,0 +1,12 @@
+Apple_Black_Rot
+Apple_Cedar_Rust
+Apple_Healthy
+Apple_Scab
+Corn_Cercospora_Leaf_Spot
+Corn_Common_Rust
+Corn_Healthy
+Corn_Northern_Leaf_Blight
+Grape___Black_rot
+Grape___Esca_(Black_Measles)
+Grape___Leaf_blight_(Isariopsis_Leaf_Spot)
+Grape___healthy

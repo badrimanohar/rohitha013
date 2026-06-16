@@ -72,9 +72,9 @@ public class DashboardActivity extends AppCompatActivity {
         }
         
         if (scaleIn != null) {
-            if (binding.cardAiDoctor != null) binding.cardAiDoctor.startAnimation(scaleIn);
             if (binding.cardCropPrice != null) binding.cardCropPrice.startAnimation(scaleIn);
             if (binding.cardCropSuggestion != null) binding.cardCropSuggestion.startAnimation(scaleIn);
+            if (binding.cardDiseaseDetection != null) binding.cardDiseaseDetection.startAnimation(scaleIn);
             if (binding.cardCommunity != null) binding.cardCommunity.startAnimation(scaleIn);
         }
     }
@@ -93,17 +93,6 @@ public class DashboardActivity extends AppCompatActivity {
         binding.navView.setNavigationItemSelectedListener(item -> {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
             return handleNavigation(item.getItemId());
-        });
-
-        // Feature Card Clicks
-        binding.cardAiDoctor.setOnClickListener(v -> {
-            AnimUtils.pressAnimation(v);
-            startActivity(new Intent(this, DiseaseDetectionActivity.class));
-        });
-        
-        binding.btnDetectNow.setOnClickListener(v -> {
-            AnimUtils.pressAnimation(v);
-            startActivity(new Intent(this, DiseaseDetectionActivity.class));
         });
 
         binding.cardCropPrice.setOnClickListener(v -> {
@@ -126,6 +115,16 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity(new Intent(this, CropAnalysisActivity.class));
         });
 
+        binding.cardDiseaseDetection.setOnClickListener(v -> {
+            AnimUtils.pressAnimation(v);
+            startActivity(new Intent(this, DiseaseDetectionActivity.class));
+        });
+
+        binding.btnScanDisease.setOnClickListener(v -> {
+            AnimUtils.pressAnimation(v);
+            startActivity(new Intent(this, DiseaseDetectionActivity.class));
+        });
+
         binding.cardCommunity.setOnClickListener(v -> {
             AnimUtils.pressAnimation(v);
             startActivity(new Intent(this, CommunityActivity.class));
@@ -136,12 +135,7 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity(new Intent(this, CommunityActivity.class));
         });
 
-        // Bottom Action Bar Logic (Scan, Chat, Market, Profile)
-        binding.actionScan.setOnClickListener(v -> {
-            AnimUtils.pressAnimation(v);
-            startActivity(new Intent(this, DiseaseDetectionActivity.class));
-        });
-
+        // Bottom Action Bar Logic (Chat, Market, Profile)
         binding.actionChat.setOnClickListener(v -> {
             AnimUtils.pressAnimation(v);
             startActivity(new Intent(this, MyCommunitiesActivity.class));
@@ -149,7 +143,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         binding.actionHistory.setOnClickListener(v -> {
             AnimUtils.pressAnimation(v);
-            startActivity(new Intent(this, DetectionHistoryActivity.class));
+            startActivity(new Intent(this, CropQualityHistoryActivity.class));
         });
 
         binding.actionProfile.setOnClickListener(v -> {
@@ -185,19 +179,17 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private boolean handleNavigation(int id) {
-        if (id == R.id.nav_home || id == R.id.nav_dashboard) {
+        if (id == R.id.nav_dashboard) {
             // Requirement 8: Fixed empty if body
             Log.d(TAG, "Already on Dashboard");
-        } else if (id == R.id.nav_disease || id == R.id.nav_crop_health) {
-            startActivity(new Intent(this, DiseaseDetectionActivity.class));
         } else if (id == R.id.nav_community) {
             startActivity(new Intent(this, CommunityActivity.class));
-        } else if (id == R.id.nav_profile || id == R.id.nav_settings) {
+        } else if (id == R.id.nav_settings) {
             startActivity(new Intent(this, ProfileSettingsActivity.class));
-        } else if (id == R.id.nav_history) {
-            startActivity(new Intent(this, DetectionHistoryActivity.class));
         } else if (id == R.id.nav_quality_history) {
             startActivity(new Intent(this, CropQualityHistoryActivity.class));
+        } else if (id == R.id.nav_crop_quality) {
+            startActivity(new Intent(this, DiseaseDetectionActivity.class));
         } else if (id == R.id.nav_logout) {
             com.google.firebase.auth.FirebaseAuth.getInstance().signOut();
             prefs.setLoggedIn(false);

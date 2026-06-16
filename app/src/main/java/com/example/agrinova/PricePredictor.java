@@ -4,8 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONObject;
-import org.tensorflow.lite.InterpreterApi;
-import com.google.android.gms.tflite.java.TfLite;
+import org.tensorflow.lite.Interpreter;
 
 import java.io.FileInputStream;
 import java.nio.MappedByteBuffer;
@@ -20,23 +19,16 @@ public class PricePredictor {
     private static final String MODEL_FILE = "crop_price_model.tflite";
     private static final String MAPPING_FILE = "price_mappings.json";
 
-    private InterpreterApi tflite;
+    private Interpreter tflite;
     private Map<String, Map<String, Integer>> mappings = new HashMap<>();
     private boolean isInitialized = false;
 
     public PricePredictor(Context context) {
         try {
-            TfLite.initialize(context).addOnSuccessListener(aVoid -> {
-                try {
-                    InterpreterApi.Options options = new InterpreterApi.Options()
-                            .setRuntime(InterpreterApi.Options.TfLiteRuntime.FROM_SYSTEM_ONLY);
-                    tflite = InterpreterApi.create(ModelLoader.loadModelFile(context, MODEL_FILE), options);
-                    isInitialized = true;
-                    Log.d(TAG, "TFLite Model loaded successfully");
-                } catch (Exception e) {
-                    Log.e(TAG, "Error loading model", e);
-                }
-            });
+            Interpreter.Options options = new Interpreter.Options();
+            tflite = new Interpreter(ModelLoader.loadModelFile(context, MODEL_FILE), options);
+            isInitialized = true;
+            Log.d(TAG, "TFLite Model loaded successfully");
             loadMappings(context);
             Log.d(TAG, "Mappings loaded successfully");
         } catch (Exception e) {

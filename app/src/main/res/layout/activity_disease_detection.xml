@@ -4,28 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F1F8E9">
+    android:background="#F8FAF8"
+    tools:context=".DiseaseDetectionActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:elevation="4dp">
+        android:background="@color/white">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@android:drawable/ic_menu_revert">
+            app:title="Crop Disease Detection"
+            app:titleTextColor="@color/primary_green"
+            app:navigationIcon="@android:drawable/ic_menu_revert"
+            app:navigationIconTint="@color/primary_green" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Crop Disease Detector"
-                android:textColor="#2E7D32"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -37,425 +32,225 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="16dp">
 
-            <!-- Image Preview Card -->
+            <!-- Image Selection Area -->
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_preview"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="6dp"
-                app:strokeColor="#C8E6C9"
-                app:strokeWidth="2dp">
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeColor="#E0E0E0"
+                app:strokeWidth="1dp">
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/iv_crop_preview"
+                        android:id="@+id/iv_preview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
+                        android:scaleType="centerInside"
                         android:src="@drawable/ic_logo"
-                        android:alpha="0.1" />
+                        android:alpha="0.3" />
 
-                    <LinearLayout
-                        android:id="@+id/layout_upload_hint"
+                    <TextView
+                        android:id="@+id/tv_placeholder"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:text="Take a photo of the infected leaf"
+                        android:textColor="@color/grey_text" />
 
-                        <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:src="@android:drawable/ic_menu_gallery"
-                            app:tint="#4CAF50" />
+                    <ProgressBar
+                        android:id="@+id/loading_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="gone" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="Upload Crop Image"
-                            android:textColor="#388E3C"
-                            android:textStyle="bold" />
-                    </LinearLayout>
                 </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_gallery"
-                    android:layout_width="0dp"
-                    android:layout_height="54dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:text="Gallery"
-                    android:backgroundTint="#81C784"
-                    android:textColor="@color/white"
-                    app:cornerRadius="12dp"
-                    app:icon="@android:drawable/ic_menu_gallery" />
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_camera"
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="0dp"
-                    android:layout_height="54dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_height="56dp"
                     android:layout_weight="1"
+                    android:layout_marginEnd="4dp"
                     android:text="Camera"
-                    android:backgroundTint="#81C784"
-                    android:textColor="@color/white"
-                    app:cornerRadius="12dp"
                     app:icon="@android:drawable/ic_menu_camera" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_gallery"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:text="Gallery"
+                    app:icon="@android:drawable/ic_menu_gallery" />
+
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_detect"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="#2E7D32"
-                android:text="Detect Disease"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:cornerRadius="12dp" />
-
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                style="?android:attr/progressBarStyleHorizontal"
+            <!-- Results Section -->
+            <LinearLayout
+                android:id="@+id/layout_results"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:indeterminate="true"
-                android:visibility="gone" />
+                android:layout_marginTop="24dp"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-            <TextView
-                android:id="@+id/tv_validation_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                tools:text="Valid Crop Image ✓"
-                tools:visibility="visible" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Analysis Result"
+                    android:textColor="@color/primary_green"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-            <!-- Result Section -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_result"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:visibility="gone"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="8dp"
-                app:cardBackgroundColor="@color/white"
-                app:strokeWidth="1dp"
-                app:strokeColor="#E8F5E9">
-
-                <LinearLayout
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                    android:layout_marginTop="8dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="12dp">
 
-                    <!-- Error State UI -->
                     <LinearLayout
-                        android:id="@+id/layout_error"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:orientation="vertical"
-                        android:visibility="gone"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:src="@android:drawable/stat_sys_warning"
-                            app:tint="#D32F2F" />
+                        android:padding="16dp">
 
                         <TextView
-                            android:id="@+id/tv_error_title"
+                            android:id="@+id/tv_crop_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:text="Invalid Image"
-                            android:textColor="#D32F2F"
-                            android:textSize="18sp"
+                            android:text="Crop: Apple"
+                            android:textColor="@color/dark_text"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tv_error_desc"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center"
-                            android:text="Please upload a valid crop or plant image."
-                            android:textColor="#888888" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_retry"
-                            style="@style/Widget.MaterialComponents.Button.TextButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:text="Try Again"
-                            android:textColor="#D32F2F"
-                            app:rippleColor="#20D32F2F" />
-                    </LinearLayout>
-
-                    <!-- Success State UI -->
-                    <LinearLayout
-                        android:id="@+id/layout_success"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="DETECTION SUMMARY"
-                                android:textColor="#2E7D32"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
-                                android:letterSpacing="0.1" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_voice"
-                                style="@style/Widget.MaterialComponents.Button.TextButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Listen"
-                                app:icon="@android:drawable/ic_btn_speak_now"
-                                app:iconTint="#2E7D32"
-                                android:textColor="#2E7D32"
-                                android:textAllCaps="false"
-                                android:padding="0dp" />
-                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tv_disease_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Disease: Apple Scab"
+                            android:textColor="#E53935"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_confidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Confidence: 98%"
+                            android:textColor="@color/grey_text"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_top_predictions"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Result Name"
-                            android:textColor="#1B5E20"
-                            android:textSize="24sp"
+                            android:text="Other possibilities: ..."
+                            android:textColor="@color/grey_text"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Recommendation Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Treatment &amp; Recommendations"
+                    android:textColor="@color/primary_green"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fertilizers &amp; Pesticides"
+                            android:textColor="@color/primary_green"
                             android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
-
-                            <TextView
-                                android:id="@+id/tv_confidence"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Confidence: 98%"
-                                android:textColor="#4CAF50"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/tv_suggestion"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="12dp"
-                                android:text="• Detected Crop: Tomato"
-                                android:textColor="#666666"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:text="Disease Severity"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#666666"/>
-
-                        <ProgressBar
-                            android:id="@+id/progress_severity"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="8dp"
-                            android:layout_marginTop="4dp"
-                            android:progress="60"
-                            android:progressTint="#FFA000" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1.5dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginBottom="20dp"
-                            android:background="#F1F8E9" />
-
-                        <!-- Detailed Info Sections -->
-                        <TextView
-                            android:id="@+id/label_description"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:text="@string/disease_description"
-                            android:textColor="#2E7D32"
-                            android:textSize="13sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.05" />
-
-                        <TextView
-                            android:id="@+id/tv_description"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="N/A"
-                            android:textColor="#424242"
-                            android:textSize="15sp"
-                            android:lineSpacingExtra="4dp" />
-
-                        <TextView
-                            android:id="@+id/label_causes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="WHY IT OCCURS?"
-                            android:textColor="#2E7D32"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tv_causes"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="N/A"
-                            android:textColor="#424242"
-                            android:textSize="15sp"
-                            android:lineSpacingExtra="4dp" />
-
-                        <TextView
-                            android:id="@+id/label_prevention"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="PREVENTION"
-                            android:textColor="#2E7D32"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tv_prevention"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="N/A"
-                            android:textColor="#424242"
-                            android:textSize="15sp"
-                            android:lineSpacingExtra="4dp" />
-
-                        <TextView
-                            android:id="@+id/tv_treatment_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="TREATMENT SUGGESTIONS"
-                            android:textColor="#2E7D32"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
                         <TextView
                             android:id="@+id/tv_treatment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="N/A"
-                            android:textColor="#424242"
-                            android:textSize="15sp"
-                            android:lineSpacingExtra="4dp" />
+                            android:layout_marginTop="4dp"
+                            android:text="Loading recommendations..."
+                            android:textColor="@color/dark_text" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="12dp"
+                            android:background="#EEEEEE" />
 
                         <TextView
-                            android:id="@+id/label_fertilizer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="RECOMMENDED FERTILIZERS"
-                            android:textColor="#2E7D32"
-                            android:textSize="13sp"
+                            android:text="Organic Treatment"
+                            android:textColor="@color/primary_green"
                             android:textStyle="bold" />
-
                         <TextView
-                            android:id="@+id/tv_fertilizer"
+                            android:id="@+id/tv_organic"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="N/A"
-                            android:textColor="#424242"
-                            android:textSize="15sp"
-                            android:lineSpacingExtra="4dp" />
+                            android:layout_marginTop="4dp"
+                            android:text="..."
+                            android:textColor="@color/dark_text" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="12dp"
+                            android:background="#EEEEEE" />
 
                         <TextView
-                            android:id="@+id/label_pesticide"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="ORGANIC SOLUTIONS &amp; PESTICIDES"
-                            android:textColor="#2E7D32"
-                            android:textSize="13sp"
+                            android:text="Prevention Tips"
+                            android:textColor="@color/primary_green"
                             android:textStyle="bold" />
-
                         <TextView
-                            android:id="@+id/tv_pesticide"
+                            android:id="@+id/tv_prevention"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="N/A"
-                            android:textColor="#424242"
-                            android:textSize="15sp"
-                            android:lineSpacingExtra="4dp" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_share_community"
-                            android:layout_width="match_parent"
-                            android:layout_height="54dp"
-                            android:layout_marginTop="24dp"
-                            android:text="@string/ask_community"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:backgroundTint="#1976D2"
-                            app:cornerRadius="12dp"
-                            app:icon="@android:drawable/ic_menu_share" />
+                            android:layout_marginTop="4dp"
+                            android:text="..."
+                            android:textColor="@color/dark_text" />
 
                     </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="32dp" />
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

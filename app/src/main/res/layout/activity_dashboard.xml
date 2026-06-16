@@ -67,60 +67,7 @@
                     android:layout_height="wrap_content"
                     android:alignmentMode="alignMargins"
                     android:columnCount="1"
-                    android:rowCount="3">
-
-                    <!-- Disease Detection Card -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_ai_doctor"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:layout_marginBottom="12dp"
-                        app:cardBackgroundColor="#E8F5E9"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="0dp">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="16dp">
-
-                            <TextView
-                                android:id="@+id/lbl1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Disease Detection"
-                                android:textColor="#1B5E20"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="Instantly scan your crop for diseases and pests."
-                                android:textColor="#2E7D32"
-                                android:textSize="12sp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/lbl1" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_detect_now"
-                                style="@style/Widget.Material3.Button.TonalButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="36dp"
-                                android:backgroundTint="#1B5E20"
-                                android:text="Detect Now"
-                                android:textAllCaps="false"
-                                android:textColor="@color/white"
-                                android:textSize="10sp"
-                                app:cornerRadius="18dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                    android:rowCount="2">
 
                     <!-- Crop Price Card -->
                     <com.google.android.material.card.MaterialCardView
@@ -228,6 +175,59 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
 
+                    <!-- Crop Disease Detection Card (Re-linked to CropQualityActivity) -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_disease_detection"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginBottom="12dp"
+                        app:cardBackgroundColor="#F1F8E9"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="0dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:id="@+id/lbl5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Disease Detection"
+                                android:textColor="#388E3C"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="Identify crop diseases and get fertilizer tips."
+                                android:textColor="#4CAF50"
+                                android:textSize="12sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/lbl5" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_scan_disease"
+                                style="@style/Widget.Material3.Button.TonalButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:backgroundTint="#388E3C"
+                                android:text="Scan Crop"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="10sp"
+                                app:cornerRadius="18dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
                 </GridLayout>
 
                 <!-- Crop Communities Section -->
@@ -296,34 +296,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:weightSum="4"
+                android:weightSum="3"
                 android:baselineAligned="false">
-
-                <!-- Scan -->
-                <LinearLayout
-                    android:id="@+id/action_scan"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:background="?attr/selectableItemBackground">
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@android:drawable/ic_menu_camera"
-                        app:tint="@color/primary_green" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Scan"
-                        android:textColor="@color/primary_green"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
 
                 <!-- Chat -->
                 <LinearLayout

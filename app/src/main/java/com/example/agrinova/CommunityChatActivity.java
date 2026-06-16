@@ -1,14 +1,22 @@
 package com.example.agrinova;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.agrinova.databinding.ActivityCommunityChatBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,21 +27,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import java.util.ArrayList;
-import java.util.List;
-import android.provider.MediaStore;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.FileProvider;
-import android.os.Environment;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
-import java.util.Locale;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Enhanced Community Chat Activity with robust Camera and Gallery support.
+ */
 public class CommunityChatActivity extends AppCompatActivity {
+
+    private static final String TAG = "AgriNova_CommChat";
+    private static final int REQUEST_PERMISSIONS = 1004;
 
     private ActivityCommunityChatBinding binding;
     private ChatAdapterV2 adapter;
@@ -45,138 +55,71 @@ public class CommunityChatActivity extends AppCompatActivity {
     private ChatMessage replyingTo = null;
     private String currentPhotoPath;
 
-    private final ActivityResultLauncher<String> getContentLauncher = registerForActivityResult(
-            new ActivityResultContracts.GetContent(),
-            uri -> {
-                if (uri != null) {
-                    uploadMedia(uri);
-                }
-            }
-    );
+    // --- ActivityResult Launchers ---
 
-    private final ActivityResultLauncher<Uri> takePictureLauncher = registerForActivityResult(
+    private final ActivityResultLauncher<String> galleryLauncher = registerForActivityResult(
+            new ActivityResultContracts.GetContent(),
+            uri -> { if (uri != null) uploadMedia(uri); });
+
+    private final ActivityResultLauncher<Uri> cameraLauncher = registerForActivityResult(
             new ActivityResultContracts.TakePicture(),
-            success -> {
-                if (success && currentPhotoPath != null) {
+            isSuccess -> {
+                if (isSuccess && currentPhotoPath != null) {
                     uploadMedia(Uri.fromFile(new File(currentPhotoPath)));
                 }
-            }
-    );
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityCommunityChatBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        try {
+            binding = ActivityCommunityChatBinding.inflate(getLayoutInflater());
+            setContentView(binding.getRoot());
 
-        communityId = getIntent().getStringExtra("communityId");
-        communityName = getIntent().getStringExtra("communityName");
+            communityId = getIntent().getStringExtra("communityId");
+            communityName = getIntent().getStringExtra("communityName");
 
-        mDatabase = FirebaseDatabase.getInstance("https://agrinova-9236c-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference();
-        mStorage = FirebaseStorage.getInstance().getReference();
-        currentUserId = FirebaseAuth.getInstance().getUid();
+            mDatabase = FirebaseDatabase.getInstance("https://agrinova-9236c-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference();
+            mStorage = FirebaseStorage.getInstance().getReference();
+            currentUserId = FirebaseAuth.getInstance().getUid();
 
-        binding.tvChatName.setText(communityName);
-        binding.btnBack.setOnClickListener(v -> finish());
-        binding.layoutTitles.setOnClickListener(v -> {
-            Intent intent = new Intent(this, CommunityMembersActivity.class);
-            intent.putExtra("communityId", communityId);
-            startActivity(intent);
-        });
+            binding.tvChatName.setText(communityName);
+            binding.btnBack.setOnClickListener(v -> finish());
+            binding.layoutTitles.setOnClickListener(v -> {
+                Intent intent = new Intent(this, CommunityMembersActivity.class);
+                intent.putExtra("communityId", communityId);
+                startActivity(intent);
+            });
 
-        mDatabase.child("communities").child(communityId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Community community = snapshot.getValue(Community.class);
-                if (community != null) {
-                    binding.tvChatStatus.setText(community.getMemberCount() + " Members");
-                }
+            checkMembership();
+            setupChatList();
+            fetchUserData();
+            listenForMessages();
+            setupInput();
+            updateUserPresence();
+
+            if (savedInstanceState != null) {
+                currentPhotoPath = savedInstanceState.getString("photo_path");
             }
-            @Override public void onCancelled(@NonNull DatabaseError error) {}
-        });
-
-        checkMembership();
-        setupChatList();
-        fetchUserData();
-        listenForMessages();
-        setupInput();
-        updateUserPresence();
+        } catch (Exception e) {
+            Log.e(TAG, "onCreate Error", e);
+            finish();
+        }
     }
 
     private void checkMembership() {
-        if (currentUserId == null) {
-            finish();
-            return;
-        }
+        if (currentUserId == null) { finish(); return; }
         mDatabase.child("communities").child(communityId).child("members").child(currentUserId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (!snapshot.exists()) {
-                            Toast.makeText(CommunityChatActivity.this, "You must join this community to view chat.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(CommunityChatActivity.this, "Membership required", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     }
                     @Override public void onCancelled(@NonNull DatabaseError error) {}
                 });
-    }
-
-    private void updateUserPresence() {
-        if (currentUserId == null) return;
-        DatabaseReference presenceRef = mDatabase.child("users").child(currentUserId).child("status");
-        DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
-        connectedRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Boolean connected = snapshot.getValue(Boolean.class);
-                if (connected != null && connected) {
-                    presenceRef.setValue("online");
-                    presenceRef.onDisconnect().setValue("offline");
-                }
-            }
-            @Override public void onCancelled(@NonNull DatabaseError error) {}
-        });
-    }
-
-    private void setupChatList() {
-        adapter = new ChatAdapterV2(messageList, new ChatAdapterV2.OnMessageClickListener() {
-            @Override
-            public void onMessageLongClick(ChatMessage message) {
-                showOptionsDialog(message);
-            }
-
-            @Override
-            public void onImageClick(String imageUrl) {
-                // Handle image zoom/preview
-            }
-        });
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setStackFromEnd(true);
-        binding.rvChatMessages.setLayoutManager(layoutManager);
-        binding.rvChatMessages.setAdapter(adapter);
-    }
-
-    private void showOptionsDialog(ChatMessage message) {
-        String[] options;
-        if (message.getSenderId().equals(currentUserId)) {
-            options = new String[]{"Reply", "Delete Message"};
-        } else {
-            options = new String[]{"Reply"};
-        }
-
-        new AlertDialog.Builder(this)
-                .setItems(options, (dialog, which) -> {
-                    if (options[which].equals("Reply")) {
-                        setupReply(message);
-                    } else if (options[which].equals("Delete Message")) {
-                        deleteMessage(message);
-                    }
-                }).show();
-    }
-
-    private void deleteMessage(ChatMessage message) {
-        mDatabase.child("communityChats").child(communityId).child(message.getMessageId()).removeValue()
-                .addOnSuccessListener(aVoid -> Toast.makeText(this, "Message deleted", Toast.LENGTH_SHORT).show());
     }
 
     private void fetchUserData() {
@@ -203,87 +146,107 @@ public class CommunityChatActivity extends AppCompatActivity {
                     ChatMessage msg = ds.getValue(ChatMessage.class);
                     if (msg != null) {
                         messageList.add(msg);
-                        // Mark as seen if not from current user
                         if (!msg.getSenderId().equals(currentUserId) && !msg.isSeen()) {
                             ds.getRef().child("seen").setValue(true);
                         }
                     }
                 }
                 adapter.notifyDataSetChanged();
-                if (!messageList.isEmpty()) {
-                    binding.rvChatMessages.smoothScrollToPosition(messageList.size() - 1);
-                }
+                if (!messageList.isEmpty()) binding.rvChatMessages.smoothScrollToPosition(messageList.size() - 1);
             }
             @Override public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 
+    private void setupChatList() {
+        adapter = new ChatAdapterV2(messageList, new ChatAdapterV2.OnMessageClickListener() {
+            @Override public void onMessageLongClick(ChatMessage m) { showOptionsDialog(m); }
+            @Override public void onImageClick(String url) {}
+        });
+        LinearLayoutManager lm = new LinearLayoutManager(this);
+        lm.setStackFromEnd(true);
+        binding.rvChatMessages.setLayoutManager(lm);
+        binding.rvChatMessages.setAdapter(adapter);
+    }
+
     private void setupInput() {
         binding.fabSend.setOnClickListener(v -> {
-            String text = binding.etMessage.getText().toString().trim();
-            if (!text.isEmpty()) {
-                sendMessage(text, null, null);
-            }
+            String t = binding.etMessage.getText().toString().trim();
+            if (!t.isEmpty()) sendMessage(t, null, null);
         });
-
-        binding.btnAttachMedia.setOnClickListener(v -> getContentLauncher.launch("*/*"));
-        binding.btnCamera.setOnClickListener(v -> openCamera());
+        binding.btnAttachMedia.setOnClickListener(v -> checkAndRequestPermissions(false));
+        binding.btnCamera.setOnClickListener(v -> checkAndRequestPermissions(true));
         binding.btnCancelReply.setOnClickListener(v -> cancelReply());
     }
 
-    private void openCamera() {
-        try {
-            File photoFile = createImageFile();
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        getApplicationContext().getPackageName() + ".fileprovider",
-                        photoFile);
-                takePictureLauncher.launch(photoURI);
+    private void checkAndRequestPermissions(boolean isCamera) {
+        String[] perms;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            perms = isCamera ? new String[]{Manifest.permission.CAMERA} : new String[]{Manifest.permission.READ_MEDIA_IMAGES};
+        } else {
+            perms = isCamera ? new String[]{Manifest.permission.CAMERA} : new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
+        }
+
+        boolean allGranted = true;
+        for (String p : perms) {
+            if (ContextCompat.checkSelfPermission(this, p) != PackageManager.PERMISSION_GRANTED) {
+                allGranted = false; break;
             }
-        } catch (IOException ex) {
-            Toast.makeText(this, "Error creating file", Toast.LENGTH_SHORT).show();
+        }
+
+        if (allGranted) {
+            if (isCamera) launchCamera(); else launchGallery();
+        } else {
+            ActivityCompat.requestPermissions(this, perms, REQUEST_PERMISSIONS);
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_PERMISSIONS) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                boolean forCamera = false;
+                for (String p : permissions) if (p.equals(Manifest.permission.CAMERA)) forCamera = true;
+                if (forCamera) launchCamera(); else launchGallery();
+            }
+        }
+    }
+
+    private void launchGallery() {
+        try { galleryLauncher.launch("image/*"); } catch (Exception e) { Log.e(TAG, "Gallery error", e); }
+    }
+
+    private void launchCamera() {
+        try {
+            File file = createImageFile();
+            if (file != null) {
+                Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", file);
+                cameraLauncher.launch(uri);
+            }
+        } catch (Exception e) { Log.e(TAG, "Camera error", e); }
+    }
+
     private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+        String ts = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        File dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        if (dir == null) return null;
+        File image = File.createTempFile("JPEG_" + ts, ".jpg", dir);
         currentPhotoPath = image.getAbsolutePath();
         return image;
     }
 
-    private void setupReply(ChatMessage message) {
-        replyingTo = message;
-        binding.layoutReplyPreview.setVisibility(View.VISIBLE);
-        binding.tvReplyName.setText("Replying to " + message.getSenderName());
-        binding.tvReplyText.setText(message.getMessage());
-        binding.etMessage.requestFocus();
-    }
-
-    private void cancelReply() {
-        replyingTo = null;
-        binding.layoutReplyPreview.setVisibility(View.GONE);
-    }
-
-    private void sendMessage(String text, String mediaUrl, String mediaType) {
-        String msgId = mDatabase.child("communityChats").child(communityId).push().getKey();
-        if (msgId == null) return;
-
-        ChatMessage message = new ChatMessage(msgId, currentUserId, currentUserName, text, System.currentTimeMillis());
-        message.setProfileImage(currentUserProfile);
-        message.setMediaUrl(mediaUrl);
-        message.setMediaType(mediaType);
+    private void sendMessage(String text, String url, String type) {
+        String id = mDatabase.child("communityChats").child(communityId).push().getKey();
+        ChatMessage m = new ChatMessage(id, currentUserId, currentUserName, text, System.currentTimeMillis());
+        m.setProfileImage(currentUserProfile); m.setMediaUrl(url); m.setMediaType(type);
 
         if (replyingTo != null) {
-            message.setReplyId(replyingTo.getMessageId());
-            message.setReplyMessage(replyingTo.getMessage());
-            message.setReplySender(replyingTo.getSenderName());
+            m.setReplyId(replyingTo.getMessageId()); m.setReplyMessage(replyingTo.getMessage()); m.setReplySender(replyingTo.getSenderName());
             cancelReply();
         }
 
-        mDatabase.child("communityChats").child(communityId).child(msgId).setValue(message);
+        if (id != null) mDatabase.child("communityChats").child(communityId).child(id).setValue(m);
         binding.etMessage.setText("");
     }
 
@@ -291,27 +254,55 @@ public class CommunityChatActivity extends AppCompatActivity {
         binding.loadingChat.setVisibility(View.VISIBLE);
         String type = getContentResolver().getType(uri);
         String ext = type != null && type.contains("pdf") ? ".pdf" : ".jpg";
-        StorageReference ref = mStorage.child("communityMedia/" + communityId + "/" + System.currentTimeMillis() + ext);
+        StorageReference ref = mStorage.child("media/" + System.currentTimeMillis() + ext);
 
-        ref.putFile(uri).addOnSuccessListener(taskSnapshot -> ref.getDownloadUrl().addOnSuccessListener(downloadUri -> {
+        ref.putFile(uri).addOnSuccessListener(ts -> ref.getDownloadUrl().addOnSuccessListener(dUri -> {
             binding.loadingChat.setVisibility(View.GONE);
-            String mediaType = type != null && type.contains("pdf") ? "pdf" : "image";
-            String downloadUrl = downloadUri.toString();
-            
-            // Save to communityMedia node as requested
-            String mediaId = mDatabase.child("communityMedia").child(communityId).push().getKey();
-            if (mediaId != null) {
-                java.util.Map<String, Object> mediaData = new java.util.HashMap<>();
-                mediaData.put("fileUrl", downloadUrl);
-                mediaData.put("fileType", mediaType);
-                mediaData.put("senderName", currentUserName);
-                mDatabase.child("communityMedia").child(communityId).child(mediaId).setValue(mediaData);
-            }
-
-            sendMessage(mediaType.equals("pdf") ? "Shared a document" : "Shared an image", downloadUrl, mediaType);
+            String mType = (type != null && type.contains("pdf")) ? "pdf" : "image";
+            sendMessage(mType.equals("pdf") ? "Document" : "Photo", dUri.toString(), mType);
         })).addOnFailureListener(e -> {
             binding.loadingChat.setVisibility(View.GONE);
             Toast.makeText(this, "Upload failed", Toast.LENGTH_SHORT).show();
         });
+    }
+
+    private void showOptionsDialog(ChatMessage m) {
+        String[] opts = m.getSenderId().equals(currentUserId) ? new String[]{"Reply", "Delete"} : new String[]{"Reply"};
+        new AlertDialog.Builder(this).setItems(opts, (d, w) -> {
+            if (opts[w].equals("Reply")) setupReply(m);
+            else deleteMessage(m);
+        }).show();
+    }
+
+    private void deleteMessage(ChatMessage m) {
+        mDatabase.child("communityChats").child(communityId).child(m.getMessageId()).removeValue();
+    }
+
+    private void setupReply(ChatMessage m) {
+        replyingTo = m;
+        binding.layoutReplyPreview.setVisibility(View.VISIBLE);
+        binding.tvReplyName.setText("Replying to " + m.getSenderName());
+        binding.tvReplyText.setText(m.getMessage());
+        binding.etMessage.requestFocus();
+    }
+
+    private void cancelReply() { replyingTo = null; binding.layoutReplyPreview.setVisibility(View.GONE); }
+
+    private void updateUserPresence() {
+        if (currentUserId == null) return;
+        DatabaseReference r = mDatabase.child("users").child(currentUserId).child("status");
+        FirebaseDatabase.getInstance().getReference(".info/connected").addValueEventListener(new ValueEventListener() {
+            @Override public void onDataChange(@NonNull DataSnapshot s) {
+                if (Boolean.TRUE.equals(s.getValue(Boolean.class))) {
+                    r.setValue("online"); r.onDisconnect().setValue("offline");
+                }
+            }
+            @Override public void onCancelled(@NonNull DatabaseError error) {}
+        });
+    }
+
+    @Override protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("photo_path", currentPhotoPath);
     }
 }

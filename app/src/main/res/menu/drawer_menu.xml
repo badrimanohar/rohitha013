@@ -10,10 +10,6 @@
             android:icon="@android:drawable/ic_menu_help"
             android:title="Crop Advisory" />
         <item
-            android:id="@+id/nav_crop_health"
-            android:icon="@android:drawable/ic_menu_camera"
-            android:title="Crop Health" />
-        <item
             android:id="@+id/nav_weather"
             android:icon="@android:drawable/ic_menu_day"
             android:title="Weather Updates" />
@@ -26,13 +22,13 @@
             android:icon="@android:drawable/ic_menu_myplaces"
             android:title="Community" />
         <item
-            android:id="@+id/nav_history"
-            android:icon="@android:drawable/ic_menu_recent_history"
-            android:title="Detection History" />
-        <item
             android:id="@+id/nav_quality_history"
             android:icon="@android:drawable/ic_menu_sort_by_size"
             android:title="Quality History" />
+        <item
+            android:id="@+id/nav_crop_quality"
+            android:icon="@android:drawable/ic_menu_view"
+            android:title="Crop Quality AI" />
     </group>
 
     <item android:title="Services">

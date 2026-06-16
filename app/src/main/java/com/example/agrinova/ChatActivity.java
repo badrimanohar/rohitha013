@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
@@ -38,7 +39,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Community Chat Activity.
+ * Updated with robust Camera and Gallery handling to prevent crashes.
+ */
 public class ChatActivity extends AppCompatActivity implements ChatAdapter.OnMessageClickListener {
+
+    private static final String TAG = "AgriNova_Chat";
+    private static final int REQUEST_PERMISSIONS = 1003;
 
     private ActivityCommunityChatBinding binding;
     private ChatAdapter adapter;
@@ -51,10 +59,12 @@ public class ChatActivity extends AppCompatActivity implements ChatAdapter.OnMes
     private ChatMessage replyingTo = null;
     private String currentPhotoPath;
 
-    private final ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK) {
+    // --- ActivityResult Launchers ---
+
+    private final ActivityResultLauncher<Uri> cameraLauncher = registerForActivityResult(
+            new ActivityResultContracts.TakePicture(),
+            isSuccess -> {
+                if (isSuccess && currentPhotoPath != null) {
                     uploadImage(Uri.fromFile(new File(currentPhotoPath)));
                 }
             }
@@ -72,45 +82,55 @@ public class ChatActivity extends AppCompatActivity implements ChatAdapter.OnMes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityCommunityChatBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        try {
+            binding = ActivityCommunityChatBinding.inflate(getLayoutInflater());
+            setContentView(binding.getRoot());
 
-        communityId = getIntent().getStringExtra("communityId");
-        communityName = getIntent().getStringExtra("communityName");
-        
-        if (communityId == null) {
+            communityId = getIntent().getStringExtra("communityId");
+            communityName = getIntent().getStringExtra("communityName");
+            
+            if (communityId == null) {
+                finish();
+                return;
+            }
+
+            mAuth = FirebaseAuth.getInstance();
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            mStorage = FirebaseStorage.getInstance().getReference();
+            currentUserId = mAuth.getUid();
+
+            binding.tvChatName.setText(communityName);
+            binding.btnBack.setOnClickListener(v -> finish());
+            binding.layoutTitles.setOnClickListener(v -> {
+                Intent intent = new Intent(this, CommunityMembersActivity.class);
+                intent.putExtra("communityId", communityId);
+                startActivity(intent);
+            });
+
+            setupChatList();
+            fetchUserData();
+            listenForMessages();
+            listenForTyping();
+            setupInput();
+
+            if (savedInstanceState != null) {
+                currentPhotoPath = savedInstanceState.getString("photo_path");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onCreate Error", e);
             finish();
-            return;
         }
-
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mStorage = FirebaseStorage.getInstance().getReference();
-        currentUserId = mAuth.getUid();
-
-        binding.tvChatName.setText(communityName);
-        binding.btnBack.setOnClickListener(v -> finish());
-        binding.layoutTitles.setOnClickListener(v -> {
-            Intent intent = new Intent(this, CommunityMembersActivity.class);
-            intent.putExtra("communityId", communityId);
-            startActivity(intent);
-        });
-
-        setupChatList();
-        fetchUserData();
-        listenForMessages();
-        listenForTyping();
-        setupInput();
     }
 
     private void fetchUserData() {
+        if (currentUserId == null) return;
         mDatabase.child("users").child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 if (user != null) {
                     currentUserName = user.getName();
-                    currentUserProfile = user.getProfileImage();
+                    currentUserProfile = user.getProfileImageUri();
                 } else {
                     currentUserName = "Farmer";
                 }
@@ -174,6 +194,7 @@ public class ChatActivity extends AppCompatActivity implements ChatAdapter.OnMes
     }
 
     private void updateTypingStatus(boolean isTyping) {
+        if (currentUserId == null) return;
         if (isTyping) {
             mDatabase.child("communities").child(communityId).child("typing").child(currentUserId).setValue(currentUserName);
         } else {
@@ -186,13 +207,7 @@ public class ChatActivity extends AppCompatActivity implements ChatAdapter.OnMes
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!s.toString().trim().isEmpty()) {
-                    binding.fabSend.setImageResource(android.R.drawable.ic_menu_send);
-                    updateTypingStatus(true);
-                } else {
-                    binding.fabSend.setImageResource(android.R.drawable.ic_menu_send);
-                    updateTypingStatus(false);
-                }
+                updateTypingStatus(!s.toString().trim().isEmpty());
             }
             @Override public void afterTextChanged(Editable s) {}
         });
@@ -205,19 +220,79 @@ public class ChatActivity extends AppCompatActivity implements ChatAdapter.OnMes
             }
         });
 
-        binding.btnCamera.setOnClickListener(v -> checkCameraPermission());
-        binding.btnAttachMedia.setOnClickListener(v -> galleryLauncher.launch("image/*"));
+        binding.btnCamera.setOnClickListener(v -> checkAndRequestPermissions(true));
+        binding.btnAttachMedia.setOnClickListener(v -> checkAndRequestPermissions(false));
         binding.btnCancelReply.setOnClickListener(v -> cancelReply());
     }
 
+    private void checkAndRequestPermissions(boolean isCamera) {
+        String[] perms;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            perms = isCamera ? new String[]{Manifest.permission.CAMERA} : new String[]{Manifest.permission.READ_MEDIA_IMAGES};
+        } else {
+            perms = isCamera ? new String[]{Manifest.permission.CAMERA} : new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
+        }
+
+        boolean allGranted = true;
+        for (String p : perms) {
+            if (ContextCompat.checkSelfPermission(this, p) != PackageManager.PERMISSION_GRANTED) {
+                allGranted = false; break;
+            }
+        }
+
+        if (allGranted) {
+            if (isCamera) launchCamera(); else launchGallery();
+        } else {
+            ActivityCompat.requestPermissions(this, perms, REQUEST_PERMISSIONS);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_PERMISSIONS) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                boolean forCamera = false;
+                for (String p : permissions) if (p.equals(Manifest.permission.CAMERA)) forCamera = true;
+                if (forCamera) launchCamera(); else launchGallery();
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void launchGallery() {
+        try { galleryLauncher.launch("image/*"); } catch (Exception e) { Log.e(TAG, "Gallery error", e); }
+    }
+
+    private void launchCamera() {
+        try {
+            File photoFile = createImageFile();
+            if (photoFile != null) {
+                Uri photoUri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", photoFile);
+                cameraLauncher.launch(photoUri);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Camera launch error", e);
+            Toast.makeText(this, "Could not open camera", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        if (storageDir == null) return null;
+        File image = File.createTempFile("JPEG_" + timeStamp + "_", ".jpg", storageDir);
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
     private void sendMessage(String text, String imageUrl) {
-        String msgId = mDatabase.child("communities").child(communityId).child("messages").push().getKey();
-        ChatMessage message = new ChatMessage(msgId, currentUserId, currentUserName, text, System.currentTimeMillis());
+        String msgKey = mDatabase.child("communities").child(communityId).child("messages").push().getKey();
+        ChatMessage message = new ChatMessage(msgKey, currentUserId, currentUserName, text, System.currentTimeMillis());
         message.setProfileImage(currentUserProfile);
         message.setMediaUrl(imageUrl);
-        if (imageUrl != null) {
-            message.setMediaType("image");
-        }
+        if (imageUrl != null) message.setMediaType("image");
 
         if (replyingTo != null) {
             message.setReplyId(replyingTo.getMessageId());
@@ -226,10 +301,8 @@ public class ChatActivity extends AppCompatActivity implements ChatAdapter.OnMes
             cancelReply();
         }
 
-        if (msgId != null) {
-            mDatabase.child("communities").child(communityId).child("messages").child(msgId).setValue(message);
-            
-            // Update last message in community node
+        if (msgKey != null) {
+            mDatabase.child("communities").child(communityId).child("messages").child(msgKey).setValue(message);
             Map<String, Object> update = new HashMap<>();
             update.put("lastMessage", imageUrl != null ? "📷 Photo" : text);
             update.put("lastMessageTime", System.currentTimeMillis());
@@ -248,37 +321,8 @@ public class ChatActivity extends AppCompatActivity implements ChatAdapter.OnMes
             });
         }).addOnFailureListener(e -> {
             binding.loadingChat.setVisibility(View.GONE);
-            Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Upload failed", Toast.LENGTH_SHORT).show();
         });
-    }
-
-    private void checkCameraPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 100);
-        } else {
-            launchCamera();
-        }
-    }
-
-    private void launchCamera() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File photoFile = null;
-        try {
-            photoFile = createImageFile();
-        } catch (IOException ex) {}
-        if (photoFile != null) {
-            Uri photoUri = FileProvider.getUriForFile(this, "com.example.agrinova.fileprovider", photoFile);
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-            cameraLauncher.launch(takePictureIntent);
-        }
-    }
-
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile("JPEG_" + timeStamp + "_", ".jpg", storageDir);
-        currentPhotoPath = image.getAbsolutePath();
-        return image;
     }
 
     @Override
@@ -290,19 +334,18 @@ public class ChatActivity extends AppCompatActivity implements ChatAdapter.OnMes
         binding.etMessage.requestFocus();
     }
 
-    @Override
-    public void onImageClick(String imageUrl) {
-        // Full screen image preview can be added here
-    }
-
-    @Override
-    public void onReplyClick(ChatMessage message) {
-        // Handled in long click
-    }
+    @Override public void onImageClick(String imageUrl) {}
+    @Override public void onReplyClick(ChatMessage message) {}
 
     private void cancelReply() {
         replyingTo = null;
         binding.layoutReplyPreview.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("photo_path", currentPhotoPath);
     }
 
     @Override
