@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "971116950369",
+    "firebase_url": "https://agriguard-29853-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "agriguard-29853",
+    "storage_bucket": "agriguard-29853.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971116950369:android:6b663c100b0b2bd1b28b20",
+        "android_client_info": {
+          "package_name": "com.example.agriguard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxFdzc9D4Gof05ZXAN8T-mDbvY1vpcVts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
