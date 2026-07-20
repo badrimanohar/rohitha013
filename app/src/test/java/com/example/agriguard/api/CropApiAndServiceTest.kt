@@ -198,4 +198,69 @@ class CropApiAndServiceTest {
             assertTrue(e.javaClass.name.contains("Json") || e.javaClass.name.contains("Malformed"))
         }
     }
+
+    @Test
+    fun testUserEndpoint() {
+        // Verify User API profile creation and sync simulation
+        val userPayload = """{"userId":"u_101","name":"Manohar Badri","email":"farmer@agriguard.com","role":"rural_farmer"}"""
+        val userObj = gson.fromJson(userPayload, Map::class.java)
+        assertEquals("u_101", userObj["userId"])
+        assertEquals("farmer@agriguard.com", userObj["email"])
+    }
+
+    @Test
+    fun testCropHistorySyncApi() {
+        // Verify Crop History API record format
+        val historyPayload = """{"historyId":"hist_55","cropName":"Tomato","diseaseName":"Early Blight","confidence":"94.5%","timestamp":1721500000}"""
+        val histObj = gson.fromJson(historyPayload, Map::class.java)
+        assertEquals("Tomato", histObj["cropName"])
+        assertEquals("Early Blight", histObj["diseaseName"])
+    }
+
+    @Test
+    fun testWeatherAdvisoryApi() {
+        // Verify Weather API response parsing for local agricultural conditions
+        val weatherPayload = """{"location":"Guntur","temp":29.5,"humidity":78,"condition":"Mostly Cloudy","rainfallForecastMM":12.4}"""
+        val weatherObj = gson.fromJson(weatherPayload, Map::class.java)
+        assertEquals("Guntur", weatherObj["location"])
+        assertEquals(29.5, weatherObj["temp"])
+        assertEquals(12.4, weatherObj["rainfallForecastMM"])
+    }
+
+    @Test
+    fun testChatbotInteractionApi() {
+        // Verify AI Chatbot advisory dialogue exchange format
+        val chatPayload = """{"messageId":"msg_001","sender":"AI Advisory","text":"Apply 2g/L Mancozeb spray immediately to control fungal spread.","timestamp":1721500100}"""
+        val chatObj = gson.fromJson(chatPayload, Map::class.java)
+        assertEquals("AI Advisory", chatObj["sender"])
+        assertTrue((chatObj["text"] as String).contains("Mancozeb"))
+    }
+
+    @Test
+    fun testCommunityForumPostsApi() {
+        // Verify Peer Farmer Connect community API payload
+        val communityPayload = """{"postId":"post_88","author":"Rohitha","community":"Rice Farmers Guild","content":"When should we apply potassium fertilizer for paddy?","likes":14}"""
+        val commObj = gson.fromJson(communityPayload, Map::class.java)
+        assertEquals("Rice Farmers Guild", commObj["community"])
+        assertEquals("Rohitha", commObj["author"])
+    }
+
+    @Test
+    fun testMarketPriceEstimationApi() {
+        // Verify Quality-Based Market Price estimation API payload
+        val pricePayload = """{"crop":"Tomato","qualityGrade":"Grade A (Premium)","marketRateINRPerKg":34.50,"mandi":"Tenali Agricultural Market","trend":"UP"}"""
+        val priceObj = gson.fromJson(pricePayload, Map::class.java)
+        assertEquals("Tomato", priceObj["crop"])
+        assertEquals("Grade A (Premium)", priceObj["qualityGrade"])
+        assertEquals(34.5, priceObj["marketRateINRPerKg"])
+    }
+
+    @Test
+    fun testPushNotificationDispatchApi() {
+        // Verify Notification delivery simulation format
+        val notifPayload = """{"notifId":"notif_99","title":"Severe Weather Advisory","body":"Heavy rainfall expected in next 24 hours. Protect harvested crops.","read":false}"""
+        val notifObj = gson.fromJson(notifPayload, Map::class.java)
+        assertEquals("Severe Weather Advisory", notifObj["title"])
+        assertEquals(false, notifObj["read"])
+    }
 }

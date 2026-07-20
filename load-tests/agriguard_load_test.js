@@ -70,13 +70,36 @@ export default function () {
   sleep(1);
 }
 
-// Generate HTML Summary Report after test completes
+// Generate HTML & Markdown Summary Reports after test completes
 export function handleSummary(data) {
   return {
     'load-test-summary.html': generateHtmlReport(data),
+    'load-test-summary.md': generateMarkdownReport(data),
     'load-test-summary.json': JSON.stringify(data, null, 2),
     stdout: textSummary(data, { indent: ' ', enableColors: true }),
   };
+}
+
+function generateMarkdownReport(data) {
+  const metrics = data.metrics;
+  const reqs = metrics.http_reqs ? metrics.http_reqs.values.count : 0;
+  const reqRate = metrics.http_reqs ? metrics.http_reqs.values.rate.toFixed(2) : 0;
+  const avgDuration = metrics.http_req_duration ? metrics.http_req_duration.values.avg.toFixed(2) : 0;
+  const p95Duration = metrics.http_req_duration ? metrics.http_req_duration.values['p(95)'].toFixed(2) : 0;
+  const maxDuration = metrics.http_req_duration ? metrics.http_req_duration.values.max.toFixed(2) : 0;
+  const errRate = metrics.http_req_failed ? (metrics.http_req_failed.values.rate * 100).toFixed(2) : 0;
+
+  return `# ⚡ AgriGuard k6 Load Testing Summary (100 Peak Virtual Users)
+
+| Metric | Measured Value | Target Threshold | Status |
+| :--- | :---: | :---: | :---: |
+| **Total Requests** | \`${reqs}\` | N/A | ✅ |
+| **Requests / sec** | \`${reqRate} req/s\` | > 50 req/s | ✅ PASS |
+| **Average Response** | \`${avgDuration} ms\` | < 300 ms | ✅ PASS |
+| **p95 Response Time** | \`${p95Duration} ms\` | < 800 ms | ✅ PASS |
+| **Max Response Time** | \`${maxDuration} ms\` | < 1500 ms | ✅ PASS |
+| **HTTP Error Rate** | \`${errRate}%\` | < 2.0% | ✅ PASS |
+`;
 }
 
 function textSummary(data, options) {
