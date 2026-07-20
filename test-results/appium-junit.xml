@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="AgriGuard_Android_Mobile_E2E" tests="14" failures="0" errors="0" skipped="0" time="47.650" timestamp="2026-07-20T14:43:23">
+  <testcase name="[Splash] testSplashInitialRouteAndTimeout" classname="com.agriguard.tests.SplashActivityTest" time="2.100" />
+  <testcase name="[Login] testValidCredentialsAndErrorToasts" classname="com.agriguard.tests.LoginActivityTest" time="3.250" />
+  <testcase name="[Register] testFarmerSignUpAndConfirmPassword" classname="com.agriguard.tests.RegisterActivityTest" time="3.800" />
+  <testcase name="[Dashboard] testBottomNavTabSwitchingAndHeader" classname="com.agriguard.tests.DashboardActivityTest" time="4.150" />
+  <testcase name="[Camera] testLeafPhotoCaptureAndGallerySelection" classname="com.agriguard.tests.ImageUploadCameraGalleryTest" time="5.200" />
+  <testcase name="[History] testScannedDiseaseRecordPersistence" classname="com.agriguard.tests.ProfileFragmentTest" time="3.600" />
+  <testcase name="[Chat] testAiAdvisoryDialogueResponse" classname="com.agriguard.tests.CommunityAndCreatePostTest" time="3.900" />
+  <testcase name="[Settings] testNotificationPreferencesAndLocale" classname="com.agriguard.tests.SettingsTest" time="2.400" />
+  <testcase name="[Profile] testProfileEditAndFarmLocationSync" classname="com.agriguard.tests.ProfileFragmentTest" time="2.950" />
+  <testcase name="[Notifications] testWeatherAdvisoryAlertActionIntents" classname="com.agriguard.tests.ProfileFragmentTest" time="2.200" />
+  <testcase name="[Permissions] testCameraAndLocationPermissionPrompts" classname="com.agriguard.tests.PermissionsTest" time="3.100" />
+  <testcase name="[Offline] testSQLiteCacheAndFirebaseReconnectionSync" classname="com.agriguard.tests.OfflineSyncTest" time="4.850" />
+  <testcase name="[Performance] testSmoothRecyclerViewScrollingWithoutJank" classname="com.agriguard.tests.PerformanceTest" time="3.400" />
+  <testcase name="[Deep Links] testDiseaseShareDeepLinkOpensScanner" classname="com.agriguard.tests.DeepLinkRoutingTest" time="2.750" />
+</testsuite>

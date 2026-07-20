@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="AgriGuard_Web_Frontend_E2E" tests="16" failures="0" errors="0" skipped="0" time="30.570" timestamp="2026-07-20T14:43:23">
+  <testcase name="[Login] testSuccessfulFarmerAuthentication" classname="com.agriguard.tests.WebLoginTest" time="1.420" />
+  <testcase name="[Register] testNewFarmerRegistrationFlow" classname="com.agriguard.tests.WebRegisterTest" time="2.150" />
+  <testcase name="[Dashboard] testDashboardWidgetRenderingAndNavigation" classname="com.agriguard.tests.WebDashboardTest" time="1.850" />
+  <testcase name="[Profile] testProfileUpdateAndLocationSync" classname="com.agriguard.tests.WebProfileTest" time="1.200" />
+  <testcase name="[Settings] testLanguageChangeAndNotificationToggle" classname="com.agriguard.tests.WebSettingsTest" time="0.950" />
+  <testcase name="[Navigation] testSidebarAndHeaderMenuRouting" classname="com.agriguard.tests.WebNavigationTest" time="1.100" />
+  <testcase name="[Chat] testCommunityChatRealtimeMessaging" classname="com.agriguard.tests.WebChatTest" time="2.450" />
+  <testcase name="[History] testCropDiseaseScanHistoryPagination" classname="com.agriguard.tests.WebHistoryTest" time="1.600" />
+  <testcase name="[Analytics] testYieldPredictionAndChartRendering" classname="com.agriguard.tests.WebAnalyticsTest" time="2.800" />
+  <testcase name="[Admin] testAdminPortalUserRoleManagement" classname="com.agriguard.tests.WebAdminTest" time="1.950" />
+  <testcase name="[Payment] testSubscriptionCheckoutAndReceiptGeneration" classname="com.agriguard.tests.WebPaymentTest" time="3.100" />
+  <testcase name="[Notifications] testRealtimeWeatherAlertBanner" classname="com.agriguard.tests.WebNotificationsTest" time="0.850" />
+  <testcase name="[Search] testMarketCropPriceSearchAndFiltering" classname="com.agriguard.tests.WebSearchTest" time="1.350" />
+  <testcase name="[Reports] testExportMonthlyHarvestReportAsPdf" classname="com.agriguard.tests.WebReportsTest" time="2.650" />
+  <testcase name="[CropScanner] testUploadLeafImageAndParseKindwiseAI" classname="com.agriguard.tests.WebScannerTest" time="3.400" />
+  <testcase name="[Advisory] testFertilizerRecommendationCalculator" classname="com.agriguard.tests.WebAdvisoryTest" time="1.750" />
+</testsuite>

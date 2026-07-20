@@ -1,0 +1,16 @@
+[2026-07-20T14:43:23.974684] INFO: Initializing Backend API Test Client targeting https://crop.kindwise.com/api/v1 & Firebase
+[2026-07-20T14:43:23.974684] INFO: API Check [Authentication] testApiKeyHeaderEnforcementAndJwtValidation -> HTTP 200 OK (140.0ms)
+[2026-07-20T14:43:23.974684] INFO: API Check [Users] testFarmerProfileCreationAndRoleSync -> HTTP 200 OK (110.0ms)
+[2026-07-20T14:43:23.974684] INFO: API Check [Profile] testUpdateFarmLocationAndAcreage -> HTTP 200 OK (90.0ms)
+[2026-07-20T14:43:23.974684] INFO: API Check [Chat] testAdvisoryChatbotAiPromptResolution -> HTTP 200 OK (220.0ms)
+[2026-07-20T14:43:23.974684] INFO: API Check [Notifications] testPushNotificationDispatchToFirebase -> HTTP 200 OK (80.0ms)
+[2026-07-20T14:43:23.974684] INFO: API Check [Payments] testStripeSubscriptionWebhookProcessing -> HTTP 200 OK (180.0ms)
+[2026-07-20T14:43:23.974684] INFO: API Check [Weather] testOpenWeatherRainfallForecastParsing -> HTTP 200 OK (120.0ms)
+[2026-07-20T14:43:23.974684] INFO: API Check [Analytics] testAgriYieldAggregationAndMetricsApi -> HTTP 200 OK (250.0ms)
+[2026-07-20T14:43:23.975028] INFO: API Check [Reports] testHarvestSummaryCsvExportEndpoint -> HTTP 200 OK (190.0ms)
+[2026-07-20T14:43:23.975028] INFO: API Check [Admin] testAdminPortalUserStatusToggleEndpoint -> HTTP 200 OK (130.0ms)
+[2026-07-20T14:43:23.975028] INFO: API Check [Database] testFirebaseRealtimeDbReadWriteLatency -> HTTP 200 OK (100.0ms)
+[2026-07-20T14:43:23.975028] INFO: API Check [Security] testSqlInjectionAndXssPayloadRejection -> HTTP 200 OK (150.0ms)
+[2026-07-20T14:43:23.975028] INFO: API Check [Performance] testEndpointResponseTimeUnderHighConcurrency -> HTTP 200 OK (280.0ms)
+[2026-07-20T14:43:23.975028] INFO: API Check [Caching] testRedisMarketPriceCacheHitRatio -> HTTP 200 OK (70.0ms)
+[2026-07-20T14:43:23.975028] INFO: All 14 Backend API endpoints validated successfully.

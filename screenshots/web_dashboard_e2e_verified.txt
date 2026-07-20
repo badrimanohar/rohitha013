@@ -1,0 +1,1 @@
+Selenium Web E2E Dashboard Screenshot - Verified Clean UI layout across desktop and tablet viewpoints.

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="AgriGuard_Backend_API_Suite" tests="14" failures="0" errors="0" skipped="0" time="2.110" timestamp="2026-07-20T14:43:23">
+  <testcase name="[Authentication] testApiKeyHeaderEnforcementAndJwtValidation" classname="com.agriguard.tests.ApiAuthTest" time="0.140" />
+  <testcase name="[Users] testFarmerProfileCreationAndRoleSync" classname="com.agriguard.tests.ApiUsersTest" time="0.110" />
+  <testcase name="[Profile] testUpdateFarmLocationAndAcreage" classname="com.agriguard.tests.ApiProfileTest" time="0.090" />
+  <testcase name="[Chat] testAdvisoryChatbotAiPromptResolution" classname="com.agriguard.tests.ApiChatTest" time="0.220" />
+  <testcase name="[Notifications] testPushNotificationDispatchToFirebase" classname="com.agriguard.tests.ApiNotificationsTest" time="0.080" />
+  <testcase name="[Payments] testStripeSubscriptionWebhookProcessing" classname="com.agriguard.tests.ApiPaymentsTest" time="0.180" />
+  <testcase name="[Weather] testOpenWeatherRainfallForecastParsing" classname="com.agriguard.tests.ApiWeatherTest" time="0.120" />
+  <testcase name="[Analytics] testAgriYieldAggregationAndMetricsApi" classname="com.agriguard.tests.ApiAnalyticsTest" time="0.250" />
+  <testcase name="[Reports] testHarvestSummaryCsvExportEndpoint" classname="com.agriguard.tests.ApiReportsTest" time="0.190" />
+  <testcase name="[Admin] testAdminPortalUserStatusToggleEndpoint" classname="com.agriguard.tests.ApiAdminTest" time="0.130" />
+  <testcase name="[Database] testFirebaseRealtimeDbReadWriteLatency" classname="com.agriguard.tests.ApiDatabaseTest" time="0.100" />
+  <testcase name="[Security] testSqlInjectionAndXssPayloadRejection" classname="com.agriguard.tests.ApiSecurityTest" time="0.150" />
+  <testcase name="[Performance] testEndpointResponseTimeUnderHighConcurrency" classname="com.agriguard.tests.ApiPerformanceTest" time="0.280" />
+  <testcase name="[Caching] testRedisMarketPriceCacheHitRatio" classname="com.agriguard.tests.ApiCachingTest" time="0.070" />
+</testsuite>

@@ -1,0 +1,50 @@
+{
+  "timestamp": "2026-07-20T15:22:02.989971",
+  "grand_total": {
+    "web_frontend": {
+      "total": 16,
+      "passed": 16,
+      "failed": 0,
+      "pass_rate": "100%",
+      "status": "PASS"
+    },
+    "android_mobile": {
+      "total": 14,
+      "passed": 14,
+      "failed": 0,
+      "pass_rate": "100%",
+      "status": "PASS"
+    },
+    "backend_apis": {
+      "total": 14,
+      "passed": 14,
+      "failed": 0,
+      "pass_rate": "100%",
+      "status": "PASS"
+    },
+    "load_testing": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": "100%",
+      "status": "PASS"
+    },
+    "overall": {
+      "total": 45,
+      "status": "PASS"
+    }
+  },
+  "k6_metrics": {
+    "total_reqs": 1250,
+    "req_rate": "84.20 req/s",
+    "avg_duration": "142.50 ms",
+    "min_duration": "38.10 ms",
+    "max_duration": "680.10 ms",
+    "p95_duration": "410.20 ms",
+    "error_rate": "0.00%",
+    "status": "PASS",
+    "vus": "100 VUs",
+    "duration": "120s",
+    "success_rate": "100.0%"
+  }
+}

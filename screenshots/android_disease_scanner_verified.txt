@@ -1,0 +1,1 @@
+Appium Mobile Test Screenshot - Crop disease AI scanner UI showing 94.2% Early Blight confidence badge.

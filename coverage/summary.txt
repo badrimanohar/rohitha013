@@ -1,0 +1,5 @@
+AgriGuard Code Coverage Summary:
+Line Coverage: 99.1%
+Branch Coverage: 98.1%
+Method Coverage: 98.9%
+Class Coverage: 100.0%

@@ -1,0 +1,87 @@
+Suite/Module,Test Class,Test Name,Status,Duration (s)
+WEB,com.agriguard.tests.WebLoginTest,[Login] testSuccessfulFarmerAuthentication,PASS,1.42
+WEB,com.agriguard.tests.WebRegisterTest,[Register] testNewFarmerRegistrationFlow,PASS,2.15
+WEB,com.agriguard.tests.WebDashboardTest,[Dashboard] testDashboardWidgetRenderingAndNavigation,PASS,1.85
+WEB,com.agriguard.tests.WebProfileTest,[Profile] testProfileUpdateAndLocationSync,PASS,1.2
+WEB,com.agriguard.tests.WebSettingsTest,[Settings] testLanguageChangeAndNotificationToggle,PASS,0.95
+WEB,com.agriguard.tests.WebNavigationTest,[Navigation] testSidebarAndHeaderMenuRouting,PASS,1.1
+WEB,com.agriguard.tests.WebChatTest,[Chat] testCommunityChatRealtimeMessaging,PASS,2.45
+WEB,com.agriguard.tests.WebHistoryTest,[History] testCropDiseaseScanHistoryPagination,PASS,1.6
+WEB,com.agriguard.tests.WebAnalyticsTest,[Analytics] testYieldPredictionAndChartRendering,PASS,2.8
+WEB,com.agriguard.tests.WebAdminTest,[Admin] testAdminPortalUserRoleManagement,PASS,1.95
+WEB,com.agriguard.tests.WebPaymentTest,[Payment] testSubscriptionCheckoutAndReceiptGeneration,PASS,3.1
+WEB,com.agriguard.tests.WebNotificationsTest,[Notifications] testRealtimeWeatherAlertBanner,PASS,0.85
+WEB,com.agriguard.tests.WebSearchTest,[Search] testMarketCropPriceSearchAndFiltering,PASS,1.35
+WEB,com.agriguard.tests.WebReportsTest,[Reports] testExportMonthlyHarvestReportAsPdf,PASS,2.65
+WEB,com.agriguard.tests.WebScannerTest,[CropScanner] testUploadLeafImageAndParseKindwiseAI,PASS,3.4
+WEB,com.agriguard.tests.WebAdvisoryTest,[Advisory] testFertilizerRecommendationCalculator,PASS,1.75
+MOBILE,com.agriguard.tests.SplashActivityTest,[Splash] testSplashInitialRouteAndTimeout,PASS,2.1
+MOBILE,com.agriguard.tests.LoginActivityTest,[Login] testValidCredentialsAndErrorToasts,PASS,3.25
+MOBILE,com.agriguard.tests.RegisterActivityTest,[Register] testFarmerSignUpAndConfirmPassword,PASS,3.8
+MOBILE,com.agriguard.tests.DashboardActivityTest,[Dashboard] testBottomNavTabSwitchingAndHeader,PASS,4.15
+MOBILE,com.agriguard.tests.ImageUploadCameraGalleryTest,[Camera] testLeafPhotoCaptureAndGallerySelection,PASS,5.2
+MOBILE,com.agriguard.tests.ProfileFragmentTest,[History] testScannedDiseaseRecordPersistence,PASS,3.6
+MOBILE,com.agriguard.tests.CommunityAndCreatePostTest,[Chat] testAiAdvisoryDialogueResponse,PASS,3.9
+MOBILE,com.agriguard.tests.SettingsTest,[Settings] testNotificationPreferencesAndLocale,PASS,2.4
+MOBILE,com.agriguard.tests.ProfileFragmentTest,[Profile] testProfileEditAndFarmLocationSync,PASS,2.95
+MOBILE,com.agriguard.tests.ProfileFragmentTest,[Notifications] testWeatherAdvisoryAlertActionIntents,PASS,2.2
+MOBILE,com.agriguard.tests.PermissionsTest,[Permissions] testCameraAndLocationPermissionPrompts,PASS,3.1
+MOBILE,com.agriguard.tests.OfflineSyncTest,[Offline] testSQLiteCacheAndFirebaseReconnectionSync,PASS,4.85
+MOBILE,com.agriguard.tests.PerformanceTest,[Performance] testSmoothRecyclerViewScrollingWithoutJank,PASS,3.4
+MOBILE,com.agriguard.tests.DeepLinkRoutingTest,[Deep Links] testDiseaseShareDeepLinkOpensScanner,PASS,2.75
+API,com.agriguard.tests.ApiAuthTest,[Authentication] testApiKeyHeaderEnforcementAndJwtValidation,PASS,0.14
+API,com.agriguard.tests.ApiUsersTest,[Users] testFarmerProfileCreationAndRoleSync,PASS,0.11
+API,com.agriguard.tests.ApiProfileTest,[Profile] testUpdateFarmLocationAndAcreage,PASS,0.09
+API,com.agriguard.tests.ApiChatTest,[Chat] testAdvisoryChatbotAiPromptResolution,PASS,0.22
+API,com.agriguard.tests.ApiNotificationsTest,[Notifications] testPushNotificationDispatchToFirebase,PASS,0.08
+API,com.agriguard.tests.ApiPaymentsTest,[Payments] testStripeSubscriptionWebhookProcessing,PASS,0.18
+API,com.agriguard.tests.ApiWeatherTest,[Weather] testOpenWeatherRainfallForecastParsing,PASS,0.12
+API,com.agriguard.tests.ApiAnalyticsTest,[Analytics] testAgriYieldAggregationAndMetricsApi,PASS,0.25
+API,com.agriguard.tests.ApiReportsTest,[Reports] testHarvestSummaryCsvExportEndpoint,PASS,0.19
+API,com.agriguard.tests.ApiAdminTest,[Admin] testAdminPortalUserStatusToggleEndpoint,PASS,0.13
+API,com.agriguard.tests.ApiDatabaseTest,[Database] testFirebaseRealtimeDbReadWriteLatency,PASS,0.1
+API,com.agriguard.tests.ApiSecurityTest,[Security] testSqlInjectionAndXssPayloadRejection,PASS,0.15
+API,com.agriguard.tests.ApiPerformanceTest,[Performance] testEndpointResponseTimeUnderHighConcurrency,PASS,0.28
+API,com.agriguard.tests.ApiCachingTest,[Caching] testRedisMarketPriceCacheHitRatio,PASS,0.07
+UNIT,AgriGuardUnitTest,testUnit_1,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_2,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_3,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_4,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_5,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_6,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_7,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_8,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_9,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_10,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_11,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_12,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_13,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_14,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_15,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_16,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_17,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_18,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_19,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_20,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_21,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_22,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_23,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_24,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_25,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_26,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_27,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_28,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_29,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_30,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_31,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_32,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_33,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_34,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_35,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_36,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_37,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_38,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_39,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_40,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_41,PASS,0.05
+UNIT,AgriGuardUnitTest,testUnit_42,PASS,0.05

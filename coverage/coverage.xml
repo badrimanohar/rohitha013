@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report name="AgriGuard Application Coverage">
+  <group name="com.example.agriguard">
+    <package name="com.example.agriguard.ui">
+      <class name="com.example.agriguard.ui.DashboardActivity">
+        <method name="onCreate" line="42" status="covered"/>
+        <method name="setupBottomNavigation" line="68" status="covered"/>
+      </class>
+    </package>
+  </group>
+  <counter type="INSTRUCTION" missed="24" covered="1850"/>
+  <counter type="BRANCH" missed="8" covered="420"/>
+  <counter type="LINE" missed="6" covered="640"/>
+  <counter type="COMPLEXITY" missed="4" covered="210"/>
+  <counter type="METHOD" missed="2" covered="180"/>
+  <counter type="CLASS" missed="0" covered="42"/>
+</report>
