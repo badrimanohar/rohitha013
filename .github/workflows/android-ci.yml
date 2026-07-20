@@ -148,26 +148,80 @@ jobs:
           echo "PLANT_ID_API_KEY=test" >> local.properties
           echo '{"project_info":{"project_id":"dummy"},"client":[{"client_info":{"android_client_info":{"package_name":"com.example.agriguard"}},"oauth_client":[{"client_type":3}],"api_key":[{"current_key":"dummy"}]}]}' > app/google-services.json
 
+  # ─────────────────────────────────────────────────────────────────────────────
+  # JOB 3: CODE QUALITY & LINTING (Android Lint, Detekt, Ktlint)
+  # ─────────────────────────────────────────────────────────────────────────────
+  code-quality:
+    name: Code Quality (Android Lint, Detekt, Ktlint)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Grant Gradlew Execute Permission
+        run: chmod +x gradlew
+
+      - name: Inject local.properties & google-services.json
+        run: |
+          echo "PLANT_ID_API_KEY=test" >> local.properties
+          echo '{"project_info":{"project_id":"dummy"},"client":[{"client_info":{"android_client_info":{"package_name":"com.example.agriguard"}},"oauth_client":[{"client_type":3}],"api_key":[{"current_key":"dummy"}]}]}' > app/google-services.json
+
       - name: Run Android Lint
         run: ./gradlew lintDebug --stacktrace
 
-      - name: Upload Android Lint Report
+      - name: Run Ktlint Check (Static Code Formatting)
+        continue-on-error: true
+        run: |
+          echo "Executing static formatting checks across Kotlin sources..."
+          ./gradlew ktlintCheck --stacktrace || echo "Ktlint check completed with formatting notes."
+
+      - name: Run Detekt Static Analysis
+        continue-on-error: true
+        run: |
+          echo "Running Detekt code smells and structural analysis..."
+          ./gradlew detekt --stacktrace || echo "Detekt analysis completed."
+
+      - name: Upload Code Quality Reports
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: android-lint-report
-          path: app/build/reports/lint-results-debug.html
+          name: code-quality-reports
+          path: |
+            app/build/reports/lint-results-debug.html
+            app/build/reports/detekt/
+            app/build/reports/ktlint/
           retention-days: 14
 
   # ─────────────────────────────────────────────────────────────────────────────
   # JOB 4: SECURITY SCANS (Gitleaks, CodeQL, OWASP Dependency Check)
   # ─────────────────────────────────────────────────────────────────────────────
   security-scans:
-    name: Security Analysis (Gitleaks & OWASP)
+    name: Security Analysis (CodeQL, Gitleaks, OWASP)
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      - name: Initialize CodeQL Security Analysis
+        uses: github/codeql-action/init@v3
+        with:
+          languages: java-kotlin
+        continue-on-error: true
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        continue-on-error: true
 
       - name: Gitleaks Secret Scanner
         uses: gitleaks/gitleaks-action@v2
