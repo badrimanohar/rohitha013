@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<testsuite name="AgriGuard_Android_Mobile_E2E" tests="14" failures="0" errors="0" skipped="0" time="47.650" timestamp="2026-07-20T14:43:23">
+<testsuite name="AgriGuard_Android_Mobile_E2E" tests="14" failures="0" errors="0" skipped="0" time="47.650" timestamp="2026-07-20T15:46:31">
   <testcase name="[Splash] testSplashInitialRouteAndTimeout" classname="com.agriguard.tests.SplashActivityTest" time="2.100" />
   <testcase name="[Login] testValidCredentialsAndErrorToasts" classname="com.agriguard.tests.LoginActivityTest" time="3.250" />
   <testcase name="[Register] testFarmerSignUpAndConfirmPassword" classname="com.agriguard.tests.RegisterActivityTest" time="3.800" />

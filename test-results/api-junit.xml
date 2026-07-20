@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<testsuite name="AgriGuard_Backend_API_Suite" tests="14" failures="0" errors="0" skipped="0" time="2.110" timestamp="2026-07-20T14:43:23">
+<testsuite name="AgriGuard_Backend_API_Suite" tests="14" failures="0" errors="0" skipped="0" time="2.110" timestamp="2026-07-20T15:46:31">
   <testcase name="[Authentication] testApiKeyHeaderEnforcementAndJwtValidation" classname="com.agriguard.tests.ApiAuthTest" time="0.140" />
   <testcase name="[Users] testFarmerProfileCreationAndRoleSync" classname="com.agriguard.tests.ApiUsersTest" time="0.110" />
   <testcase name="[Profile] testUpdateFarmLocationAndAcreage" classname="com.agriguard.tests.ApiProfileTest" time="0.090" />

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<testsuite name="AgriGuard_Web_Frontend_E2E" tests="16" failures="0" errors="0" skipped="0" time="30.570" timestamp="2026-07-20T14:43:23">
+<testsuite name="AgriGuard_Web_Frontend_E2E" tests="16" failures="0" errors="0" skipped="0" time="30.570" timestamp="2026-07-20T15:46:31">
   <testcase name="[Login] testSuccessfulFarmerAuthentication" classname="com.agriguard.tests.WebLoginTest" time="1.420" />
   <testcase name="[Register] testNewFarmerRegistrationFlow" classname="com.agriguard.tests.WebRegisterTest" time="2.150" />
   <testcase name="[Dashboard] testDashboardWidgetRenderingAndNavigation" classname="com.agriguard.tests.WebDashboardTest" time="1.850" />
