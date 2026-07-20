@@ -117,6 +117,10 @@ jobs:
 
       - name: Verify OpenPyXL Installation & Python Environment
         run: |
+          python --version
+          which python || command -v python
+          python -m pip --version
+          python -m pip list
           python -m pip show openpyxl
           python -c "import openpyxl; print(openpyxl.__version__)"
 
@@ -266,6 +270,10 @@ jobs:
           mkdir -p ~/.cache/pip
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
+          python --version
+          which python || command -v python
+          python -m pip --version
+          python -m pip list
           python -m pip show openpyxl
           python -c "import openpyxl; print(openpyxl.__version__)"
 
@@ -405,6 +413,10 @@ jobs:
 
       - name: Verify OpenPyXL Installation & Python Environment
         run: |
+          python --version
+          which python || command -v python
+          python -m pip --version
+          python -m pip list
           python -m pip show openpyxl
           python -c "import openpyxl; print(openpyxl.__version__)"
 
@@ -436,6 +448,10 @@ jobs:
           mkdir -p ~/.cache/pip
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
+          python --version
+          which python || command -v python
+          python -m pip --version
+          python -m pip list
           python -m pip show openpyxl
           python -c "import openpyxl; print(openpyxl.__version__)"
 
@@ -467,6 +483,10 @@ jobs:
           mkdir -p ~/.cache/pip
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
+          python --version
+          which python || command -v python
+          python -m pip --version
+          python -m pip list
           python -m pip show openpyxl
           python -c "import openpyxl; print(openpyxl.__version__)"
 
@@ -501,6 +521,10 @@ jobs:
           mkdir -p ~/.cache/pip
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
+          python --version
+          which python || command -v python
+          python -m pip --version
+          python -m pip list
           python -m pip show openpyxl
           python -c "import openpyxl; print(openpyxl.__version__)"
 
@@ -535,6 +559,10 @@ jobs:
           mkdir -p ~/.cache/pip
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
+          python --version
+          which python || command -v python
+          python -m pip --version
+          python -m pip list
           python -m pip show openpyxl
           python -c "import openpyxl; print(openpyxl.__version__)"
 
@@ -570,6 +598,10 @@ jobs:
           mkdir -p ~/.cache/pip
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
+          python --version
+          which python || command -v python
+          python -m pip --version
+          python -m pip list
           python -m pip show openpyxl
           python -c "import openpyxl; print(openpyxl.__version__)"
 
