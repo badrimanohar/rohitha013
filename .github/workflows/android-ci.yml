@@ -128,10 +128,10 @@ jobs:
           retention-days: 14
 
   # ─────────────────────────────────────────────────────────────────────────────
-  # JOB 3: CODE QUALITY & LINTING (Android Lint, Detekt, Ktlint)
+  # JOB 3: ESPRESSO & INSTRUMENTATION UI TESTS
   # ─────────────────────────────────────────────────────────────────────────────
-  code-quality:
-    name: Code Quality (Android Lint & Static Analysis)
+  espresso-tests:
+    name: Espresso & Instrumentation UI Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -152,8 +152,11 @@ jobs:
           echo "PLANT_ID_API_KEY=test" >> local.properties
           echo '{"project_info":{"project_id":"dummy"},"client":[{"client_info":{"android_client_info":{"package_name":"com.example.agriguard"}},"oauth_client":[{"client_type":3}],"api_key":[{"current_key":"dummy"}]}]}' > app/google-services.json
 
+      - name: Compile & Verify Instrumentation UI Tests
+        run: ./gradlew assembleDebugAndroidTest --stacktrace
+
   # ─────────────────────────────────────────────────────────────────────────────
-  # JOB 3: CODE QUALITY & LINTING (Android Lint, Detekt, Ktlint)
+  # JOB 4: CODE QUALITY & LINTING (Android Lint, Detekt, Ktlint)
   # ─────────────────────────────────────────────────────────────────────────────
   code-quality:
     name: Code Quality (Android Lint, Detekt, Ktlint)
@@ -204,7 +207,7 @@ jobs:
           retention-days: 14
 
   # ─────────────────────────────────────────────────────────────────────────────
-  # JOB 4: SECURITY SCANS (Gitleaks, CodeQL, OWASP Dependency Check)
+  # JOB 5: SECURITY SCANS (Gitleaks, CodeQL, OWASP Dependency Check)
   # ─────────────────────────────────────────────────────────────────────────────
   security-scans:
     name: Security Analysis (CodeQL, Gitleaks, OWASP)
@@ -251,7 +254,7 @@ jobs:
           retention-days: 14
 
   # ─────────────────────────────────────────────────────────────────────────────
-  # JOB 5: LOAD TESTING (k6 - 100 Virtual Users)
+  # JOB 6: LOAD TESTING (k6 - 100 Virtual Users)
   # ─────────────────────────────────────────────────────────────────────────────
   load-testing:
     name: k6 Load & Concurrency Testing
@@ -278,11 +281,11 @@ jobs:
           retention-days: 14
 
   # ─────────────────────────────────────────────────────────────────────────────
-  # JOB 6: FINAL DASHBOARD SUMMARY
+  # JOB 7: FINAL DASHBOARD SUMMARY
   # ─────────────────────────────────────────────────────────────────────────────
   final-dashboard:
     name: CI/CD Final Dashboard & Summary
-    needs: [build-apk, unit-tests, code-quality, security-scans, load-testing]
+    needs: [build-apk, unit-tests, espresso-tests, code-quality, security-scans, load-testing]
     if: always()
     runs-on: ubuntu-latest
     steps:
@@ -306,6 +309,7 @@ jobs:
 
           if [ "${{ needs.build-apk.result }}" != "success" ]; then BUILD_STATUS="❌ FAIL"; fi
           if [ "${{ needs.unit-tests.result }}" != "success" ]; then UNIT_STATUS="❌ FAIL"; fi
+          if [ "${{ needs.espresso-tests.result }}" != "success" ]; then ESPRESSO_STATUS="❌ FAIL"; fi
           if [ "${{ needs.code-quality.result }}" != "success" ]; then LINT_STATUS="❌ FAIL"; fi
           if [ "${{ needs.security-scans.result }}" != "success" ]; then SECURITY_STATUS="❌ FAIL"; fi
           if [ "${{ needs.load-testing.result }}" != "success" ]; then LOAD_STATUS="⚠️ WARN"; fi
