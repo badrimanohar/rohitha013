@@ -350,7 +350,7 @@ def generate_400_test_cases():
             
     return test_cases
 
-def write_excel_report(test_cases, output_path="test_report.xlsx"):
+def write_excel_report(test_cases, output_path="reports/test_report.xlsx"):
     """
     Creates a highly professional, formatted Excel workbook with:
     - Sheet 1: Dashboard / Executive Summary
@@ -560,8 +560,13 @@ def write_excel_report(test_cases, output_path="test_report.xlsx"):
     ws_details.auto_filter.ref = f"A1:I{len(test_cases) + 1}"
     
     # Save file
+    if os.path.dirname(output_path):
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
     wb.save(output_path)
     print(f"Excel test report successfully generated at: {os.path.abspath(output_path)}")
+    # Also save a copy to root if different
+    if output_path != "test_report.xlsx":
+        wb.save("test_report.xlsx")
 
 if __name__ == "__main__":
     print("Initializing test case repository...")

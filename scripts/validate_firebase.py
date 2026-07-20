@@ -1,5 +1,12 @@
 import os
+import sys
 import json
+
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
 
 def validate_firebase():
     report_lines = [
@@ -53,9 +60,9 @@ def validate_firebase():
         if os.path.exists(build_gradle_path):
             with open(build_gradle_path, "r", encoding="utf-8") as f:
                 content = f.read()
-            auth_ok = "firebase-auth" in content
-            db_ok = "firebase-database" in content
-            storage_ok = "firebase-storage" in content
+            auth_ok = "firebase-auth" in content or "firebase.auth" in content
+            db_ok = "firebase-database" in content or "firebase.database" in content
+            storage_ok = "firebase-storage" in content or "firebase.storage" in content
             
             report_lines.append(f"| **Firebase Authentication SDK** | {'✅ PASS' if auth_ok else '❌ MISSING'} | `com.google.firebase:firebase-auth` |")
             report_lines.append(f"| **Firebase Realtime Database SDK** | {'✅ PASS' if db_ok else '❌ MISSING'} | `com.google.firebase:firebase-database` |")
