@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.agriguard.R;
@@ -42,9 +43,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         holder.tvDate.setText(DateFormat.format("dd MMM yyyy, hh:mm a", result.getTimestamp()));
         
         if (result.getStatus().equalsIgnoreCase("Healthy")) {
-            holder.tvDiseaseStatus.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.primary_green));
+            holder.tvDiseaseStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.primary_green));
         } else {
-            holder.tvDiseaseStatus.setTextColor(holder.itemView.getContext().getResources().getColor(android.R.color.holo_red_dark));
+            holder.tvDiseaseStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), android.R.color.holo_red_dark));
         }
 
         if (result.getImageUrl() != null && !result.getImageUrl().isEmpty()) {

@@ -6,9 +6,12 @@ on:
   pull_request:
     branches: [ "main", "master" ]
 
+env:
+  GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -Dfile.encoding=UTF-8"
+
 jobs:
   build:
-    name: Build · Lint · Test · APK
+    name: Build - Lint - Test - APK
     runs-on: ubuntu-latest
 
     steps:
@@ -29,18 +32,66 @@ jobs:
       - name: Grant gradlew execute permission
         run: chmod +x gradlew
 
-      # 4. Inject PLANT_ID_API_KEY
-      #    Add secret in: Settings -> Secrets -> Actions -> PLANT_ID_API_KEY
-      - name: Create local.properties with API key
+      # 4. Inject PLANT_ID_API_KEY secret into local.properties
+      #    Configure: Settings -> Secrets -> Actions -> PLANT_ID_API_KEY
+      - name: Inject PLANT_ID_API_KEY
         run: |
           echo "PLANT_ID_API_KEY=${{ secrets.PLANT_ID_API_KEY }}" >> local.properties
 
-      # 5. Inject google-services.json from secret
-      #    Add secret in: Settings -> Secrets -> Actions -> GOOGLE_SERVICES_JSON
-      - name: Create google-services.json
-        run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > app/google-services.json
+      # 5. Inject google-services.json
+      #    Configure: Settings -> Secrets -> Actions -> GOOGLE_SERVICES_JSON
+      #    Value: paste the full content of app/google-services.json
+      - name: Inject google-services.json
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -n "$GOOGLE_SERVICES_JSON" ]; then
+            echo "$GOOGLE_SERVICES_JSON" > app/google-services.json
+            echo "google-services.json injected from secret."
+          else
+            echo "WARNING: GOOGLE_SERVICES_JSON secret not set."
+            echo "Using fallback: creating minimal google-services.json for CI build."
+            cat > app/google-services.json << 'EOFGS'
+          {
+            "project_info": {
+              "project_number": "971116950369",
+              "firebase_url": "https://agriguard-29853-default-rtdb.asia-southeast1.firebasedatabase.app",
+              "project_id": "agriguard-29853",
+              "storage_bucket": "agriguard-29853.firebasestorage.app"
+            },
+            "client": [
+              {
+                "client_info": {
+                  "mobilesdk_app_id": "1:971116950369:android:6b663c100b0b2bd1b28b20",
+                  "android_client_info": {
+                    "package_name": "com.example.agriguard"
+                  }
+                },
+                "oauth_client": [
+                  {
+                    "client_id": "971116950369-dummy.apps.googleusercontent.com",
+                    "client_type": 3
+                  }
+                ],
+                "api_key": [
+                  {
+                    "current_key": "AIzaSyAxFdzc9D4Gof05ZXAN8T-mDbvY1vpcVts"
+                  }
+                ],
+                "services": {
+                  "appinvite_service": {
+                    "other_platform_oauth_client": []
+                  }
+                }
+              }
+            ],
+            "configuration_version": "1"
+          }
+          EOFGS
+          fi
+          echo "google-services.json size: $(wc -c < app/google-services.json) bytes"
 
-      # 6. Gradle cache
+      # 6. Cache Gradle packages
       - name: Cache Gradle packages
         uses: actions/cache@v4
         with:
@@ -51,7 +102,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # 7. Unit tests
+      # 7. Run unit tests
       - name: Run unit tests
         run: ./gradlew test --stacktrace
 
@@ -64,7 +115,7 @@ jobs:
           path: app/build/reports/tests/testDebugUnitTest/
           retention-days: 14
 
-      # 9. Android Lint
+      # 9. Android Lint (abortOnError=false in build.gradle.kts - non-blocking)
       - name: Run Android Lint
         run: ./gradlew lintDebug --stacktrace
 
@@ -81,7 +132,7 @@ jobs:
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace
 
-      # 12. Upload APK artifact
+      # 12. Upload debug APK artifact
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
