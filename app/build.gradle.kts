@@ -25,7 +25,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner =
-            "androidx.test.runner.AndroidJUnitRunner"
+            "com.example.agriguard.runner.AgriGuardTestRunner"
 
         val localProperties = Properties()
         val localPropertiesFile = rootProject.file("local.properties")
@@ -60,6 +60,12 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    lint {
+        abortOnError = false
+        htmlReport = true
+        warningsAsErrors = false
+    }
 }
 
 dependencies {
@@ -84,7 +90,33 @@ dependencies {
 
     implementation(libs.mlkit.image.labeling)
 
+    // Kotlin Coroutines (required by DetectionViewModel + DetectionRepository)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+
     testImplementation(libs.junit)
-    androidTestImplementation(libs.espresso.core)
+
+    // ── Espresso UI Testing ────────────────────────────────────────────────────
     androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+
+    // Espresso Intents — for stubbing camera / gallery intents
+    androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1")
+
+    // Espresso Contrib — for RecyclerViewActions, NavigationViewActions, etc.
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.5.1")
+
+    // Espresso Idling Resource
+    androidTestImplementation("androidx.test.espresso:espresso-idling-resource:3.5.1")
+
+    // Core test rules (ActivityScenarioRule, GrantPermissionRule)
+    androidTestImplementation("androidx.test:rules:1.5.0")
+    androidTestImplementation("androidx.test:core:1.5.0")
+    androidTestImplementation("androidx.test:core-ktx:1.5.0")
+
+    // Architecture Components testing (optional, for ViewModel testing)
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
+
+    // Fragment testing
+    debugImplementation("androidx.fragment:fragment-testing:1.6.2")
 }

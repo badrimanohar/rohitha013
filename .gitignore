@@ -14,10 +14,24 @@
 .cxx
 local.properties
 
-# JVM logs and error output
+# Firebase — contains live API key, must NOT be in VCS
+/app/google-services.json
+
+# JVM crash logs (Android Studio)
 hs_err_pid*.log
 replay_pid*.log
+
+# Manifest merge error logs
 manifest_error*.txt
+
+# Test reports (generated artifacts)
+test_report.xlsx
+
+# Stray root-level duplicate source directory
+/repositories/
 
 # Temporary office files
 ~$*
+
+# Build output
+/app/build/
