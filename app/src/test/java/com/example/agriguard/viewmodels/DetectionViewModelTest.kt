@@ -36,6 +36,20 @@ class DetectionViewModelTest {
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
         val application = ApplicationProvider.getApplicationContext<Application>()
+        try {
+            if (com.google.firebase.FirebaseApp.getApps(application).isEmpty()) {
+                com.google.firebase.FirebaseApp.initializeApp(
+                    application,
+                    com.google.firebase.FirebaseOptions.Builder()
+                        .setApplicationId("dummy_app_id")
+                        .setApiKey("dummy_api_key")
+                        .setProjectId("dummy_project")
+                        .build()
+                )
+            }
+        } catch (e: Exception) {
+            // Safe fallback during Robolectric execution
+        }
         viewModel = DetectionViewModel(application)
     }
 

@@ -26,9 +26,26 @@ import java.util.Locale
 class DetectionRepository(private val context: Context? = null) {
     private val TAG = "API_DEBUG"
     
-    private val mDatabase = FirebaseDatabase.getInstance("https://agriguard-29853-default-rtdb.asia-southeast1.firebasedatabase.app").reference
-    private val mStorage = FirebaseStorage.getInstance("gs://agriguard-29853.firebasestorage.app")
-    private val userId = FirebaseAuth.getInstance().uid
+    private val mDatabase by lazy {
+        try {
+            FirebaseDatabase.getInstance("https://agriguard-29853-default-rtdb.asia-southeast1.firebasedatabase.app").reference
+        } catch (e: Exception) {
+            null
+        }
+    }
+    private val mStorage by lazy {
+        try {
+            FirebaseStorage.getInstance("gs://agriguard-29853.firebasestorage.app")
+        } catch (e: Exception) {
+            null
+        }
+    }
+    private val userId: String?
+        get() = try {
+            FirebaseAuth.getInstance().uid
+        } catch (e: Exception) {
+            null
+        }
 
     /**
      * Calls Crop.Health Service for analysis with mandatory logging and dynamic null checks.
@@ -229,11 +246,13 @@ class DetectionRepository(private val context: Context? = null) {
 
     suspend fun saveDetectionHistory(prediction: PredictionResult, bitmap: Bitmap) {
         val currentUserId = userId ?: return
+        val db = mDatabase ?: return
+        val storage = mStorage ?: return
         try {
-            val historyId = mDatabase.child("users").child(currentUserId).child("history").push().key ?: return
+            val historyId = db.child("users").child(currentUserId).child("history").push().key ?: return
             prediction.id = historyId
             val imagePath = "detection_images/$currentUserId/$historyId.jpg"
-            val imageRef = mStorage.reference.child(imagePath)
+            val imageRef = storage.reference.child(imagePath)
             val baos = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, 60, baos)
             val data = baos.toByteArray()
@@ -244,7 +263,7 @@ class DetectionRepository(private val context: Context? = null) {
             } catch (e: Exception) {
                 Log.e(TAG, "Firebase Upload failed: ${e.message}")
             }
-            mDatabase.child("users").child(currentUserId).child("history").child(historyId)
+            db.child("users").child(currentUserId).child("history").child(historyId)
                 .setValue(prediction)
                 .await()
         } catch (e: Exception) {

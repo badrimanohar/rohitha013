@@ -1,12 +1,14 @@
 package com.example.agriguard.models
 
-import com.example.agriguard.api.CropRequest
+import com.example.agriguard.api.*
+import com.example.agriguard.utils.LocationData
 import org.junit.Assert.*
 import org.junit.Test
 
 /**
- * Comprehensive Unit Tests for AgriGuard data models.
- * Covers: User Profile, Disease Detection Results, Community Chat & Posts, and Notifications.
+ * Comprehensive Unit Tests for AgriGuard data models and API response models.
+ * Covers: User Profile, Disease Detection Results, Community Chat & Posts, Notifications,
+ * API Requests/Responses, and LocationData utility.
  */
 class ModelUnitTests {
 
@@ -17,17 +19,36 @@ class ModelUnitTests {
 
         assertEquals("Manohar Badri", user.name)
         assertEquals("manohar@agriguard.com", user.email)
-        assertEquals("https://photo.url", user.photoUrl)
-        assertEquals("google", user.authProvider)
+        assertEquals("https://photo.url", user.profileImage)
+        assertEquals("google", user.provider)
         assertEquals(timestamp, user.createdAt)
+        assertEquals(timestamp, user.updatedAt)
     }
 
     @Test
-    fun testUserEmptyConstructorForFirebase() {
+    fun testUserEmptyConstructorAndSetters() {
         val user = User()
         assertNull(user.name)
         assertNull(user.email)
         assertEquals(0L, user.createdAt)
+
+        user.name = "Updated Farmer"
+        user.email = "updated@agriguard.com"
+        user.profileImage = "https://new.photo.url"
+        user.provider = "password"
+        user.phone = "+919876543210"
+        user.location = "Guntur, Andhra Pradesh"
+        user.bio = "Passionate organic farmer"
+        user.preferredCrops = "Rice, Chilli, Cotton"
+
+        assertEquals("Updated Farmer", user.name)
+        assertEquals("updated@agriguard.com", user.email)
+        assertEquals("https://new.photo.url", user.profileImage)
+        assertEquals("password", user.provider)
+        assertEquals("+919876543210", user.phone)
+        assertEquals("Guntur, Andhra Pradesh", user.location)
+        assertEquals("Passionate organic farmer", user.bio)
+        assertEquals("Rice, Chilli, Cotton", user.preferredCrops)
     }
 
     @Test
@@ -53,6 +74,12 @@ class ModelUnitTests {
         assertEquals("Early Blight", prediction.diseaseName)
         assertEquals("Diseased", prediction.status)
         assertEquals("94.5%", prediction.confidence)
+        assertEquals("Fungal infection affecting leaves and stems.", prediction.description)
+        assertEquals("Rotate crops and apply copper fungicide.", prediction.preventionTips)
+        assertEquals("Phosphorus rich fertilizer", prediction.fertilizer)
+        assertEquals("Chlorothalonil", prediction.pesticides)
+        assertEquals("Alternaria solani fungus", prediction.causes)
+        assertEquals("Dark concentric rings on older leaves", prediction.symptoms)
         assertTrue(prediction.isCropIdentified)
         assertNotNull(prediction.timestamp)
     }
@@ -68,59 +95,99 @@ class ModelUnitTests {
 
         assertEquals("Healthy", healthyResult.status)
         assertEquals("None", healthyResult.diseaseName)
+        assertEquals("Rice", healthyResult.cropName)
+        assertEquals("99.1%", healthyResult.confidence)
     }
 
     @Test
-    fun testCommunityModel() {
+    fun testCommunityModelConstructors() {
         val community = Community(
             "comm_001",
             "Rice Farmers Guild",
             "Discussing paddy cultivation and water management",
             1250,
+            "https://image.url/rice.jpg"
+        )
+
+        assertEquals("comm_001", community.id)
+        assertEquals("Rice Farmers Guild", community.name)
+        assertEquals("Discussing paddy cultivation and water management", community.description)
+        assertEquals(1250, community.memberCount)
+        assertEquals("https://image.url/rice.jpg", community.image)
+
+        community.isJoined = true
+        assertTrue(community.isJoined)
+
+        community.isJoined = false
+        assertFalse(community.isJoined)
+    }
+
+    @Test
+    fun testCommunityModelFullConstructor() {
+        val community = Community(
+            "comm_002",
+            "Cotton Growers Hub",
+            "Pest management and yield optimization",
+            850,
+            "Check out the new fertilizer pricing!",
+            3,
+            "https://image.url/cotton.jpg",
             true
         )
 
-        assertEquals("comm_001", community.getId())
-        assertEquals("Rice Farmers Guild", community.getName())
-        assertEquals(1250, community.getMemberCount())
-        assertTrue(community.isJoined())
-
-        community.setJoined(false)
-        assertFalse(community.isJoined())
+        assertEquals("comm_002", community.id)
+        assertEquals("Cotton Growers Hub", community.name)
+        assertEquals("Check out the new fertilizer pricing!", community.lastMessage)
+        assertEquals(3, community.unreadCount)
+        assertTrue(community.isJoined)
     }
 
     @Test
     fun testCommunityPostModel() {
         val post = CommunityPost(
-            "post_01",
-            "user_88",
             "Rohitha",
+            "2 hours ago",
             "How often should I irrigate during vegetative stage?",
-            "https://img.url/paddy.jpg",
-            System.currentTimeMillis(),
-            14
+            101,
+            14,
+            5
         )
 
-        assertEquals("post_01", post.getPostId())
-        assertEquals("Rohitha", post.getAuthorName())
-        assertEquals("How often should I irrigate during vegetative stage?", post.getContent())
-        assertEquals(14, post.getLikesCount())
+        assertEquals("Rohitha", post.author)
+        assertEquals("2 hours ago", post.time)
+        assertEquals("How often should I irrigate during vegetative stage?", post.content)
+        assertEquals(101, post.imageResId)
+        assertEquals(14, post.likes)
+        assertEquals(5, post.comments)
     }
 
     @Test
     fun testChatMessageModel() {
+        val timestamp = System.currentTimeMillis()
         val chat = ChatMessage(
             "msg_101",
             "user_42",
+            "Manohar Badri",
             "Hello everyone, weather looks good for harvest!",
-            System.currentTimeMillis(),
-            true
+            "https://image.url/chat.jpg",
+            timestamp
         )
 
-        assertEquals("msg_101", chat.getMessageId())
-        assertEquals("user_42", chat.getSenderId())
-        assertEquals("Hello everyone, weather looks good for harvest!", chat.getMessage())
-        assertTrue(chat.isSentByMe())
+        assertEquals("msg_101", chat.id)
+        assertEquals("user_42", chat.senderId)
+        assertEquals("Manohar Badri", chat.senderName)
+        assertEquals("Hello everyone, weather looks good for harvest!", chat.text)
+        assertEquals("https://image.url/chat.jpg", chat.image)
+        assertEquals(timestamp, chat.timestamp)
+    }
+
+    @Test
+    fun testChatMessageEmptyConstructor() {
+        val chat = ChatMessage()
+        assertNull(chat.id)
+        assertNull(chat.senderId)
+        assertNull(chat.text)
+        assertEquals(0L, chat.timestamp)
     }
 
     @Test
@@ -132,27 +199,31 @@ class ModelUnitTests {
             "Scan Crop"
         )
 
-        assertEquals("Crop Disease Detection", feature.getTitle())
-        assertEquals("Upload image to identify diseases", feature.getDescription())
-        assertEquals("Scan Crop", feature.getActionText())
+        assertEquals("Crop Disease Detection", feature.title)
+        assertEquals("Upload image to identify diseases", feature.description)
+        assertEquals(101, feature.iconRes)
+        assertEquals("Scan Crop", feature.buttonText)
     }
 
     @Test
     fun testNotificationModel() {
+        val timestamp = System.currentTimeMillis()
         val notification = Notification(
             "notif_55",
             "Severe Weather Alert",
             "Heavy rainfall expected over next 48 hours in your district.",
-            System.currentTimeMillis(),
+            timestamp,
             false
         )
 
-        assertEquals("notif_55", notification.getId())
-        assertEquals("Severe Weather Alert", notification.getTitle())
-        assertFalse(notification.isRead())
+        assertEquals("notif_55", notification.id)
+        assertEquals("Severe Weather Alert", notification.title)
+        assertEquals("Heavy rainfall expected over next 48 hours in your district.", notification.message)
+        assertEquals(timestamp, notification.timestamp)
+        assertFalse(notification.isRead)
 
-        notification.setRead(true)
-        assertTrue(notification.isRead())
+        notification.isRead = true
+        assertTrue(notification.isRead)
     }
 
     @Test
@@ -170,4 +241,88 @@ class ModelUnitTests {
         assertEquals(80.6480, request.longitude)
         assertTrue(request.similarImages)
     }
+
+    @Test
+    fun testPlantResponseAndSubModels() {
+        val suggestion = Suggestion(
+            id = "disease_01",
+            name = "Alternaria solani",
+            probability = 0.954,
+            details = DiseaseDetails(
+                description = "Early blight caused by fungus.",
+                treatment = Treatment(
+                    chemical = listOf("Copper Fungicide", "Mancozeb"),
+                    biological = listOf("Bacillus subtilis"),
+                    prevention = listOf("Crop rotation", "Drip irrigation")
+                ),
+                cause = "Alternaria solani fungus",
+                symptoms = Symptoms(
+                    text = "Concentric rings on leaves",
+                    description = "Starts on lower foliage and moves up."
+                ),
+                commonNames = listOf("Early blight", "Target spot"),
+                url = "https://en.wikipedia.org/wiki/Alternaria_solani"
+            )
+        )
+
+        val response = PlantResponse(
+            accessToken = "token_xyz",
+            modelVersion = "v2.1",
+            result = PlantResult(
+                isPlant = IsPlant(probability = 0.99, binary = true),
+                classification = Classification(suggestions = listOf(suggestion)),
+                disease = DiseaseResult(suggestions = listOf(suggestion)),
+                isHealthy = IsHealthy(probability = 0.046, binary = false),
+                healthAssessment = HealthAssessment(
+                    isHealthy = false,
+                    isHealthyProbability = 0.046,
+                    diseases = listOf(suggestion)
+                )
+            ),
+            status = "COMPLETED"
+        )
+
+        assertEquals("token_xyz", response.accessToken)
+        assertEquals("v2.1", response.modelVersion)
+        assertEquals("COMPLETED", response.status)
+        assertNotNull(response.result)
+
+        val result = response.result!!
+        assertEquals(true, result.isPlant?.binary)
+        assertEquals(0.99, result.isPlant?.probability)
+        assertEquals(false, result.isHealthy?.binary)
+
+        val firstDisease = result.disease?.suggestions?.first()
+        assertNotNull(firstDisease)
+        assertEquals("Alternaria solani", firstDisease?.name)
+        assertEquals(0.954, firstDisease?.probability)
+
+        val details = firstDisease?.details
+        assertNotNull(details)
+        assertEquals("Alternaria solani fungus", details?.cause)
+        assertEquals(2, details?.treatment?.chemical?.size)
+        assertEquals("Copper Fungicide", details?.treatment?.chemical?.get(0))
+        assertEquals("Concentric rings on leaves", details?.symptoms?.text)
+        assertEquals("Early blight", details?.commonNames?.get(0))
+    }
+
+    @Test
+    fun testLocationDataStatesAndDistricts() {
+        val states = LocationData.getStates()
+        assertNotNull(states)
+        assertTrue(states.contains("Andhra Pradesh"))
+        assertTrue(states.contains("Maharashtra"))
+        assertTrue(states.contains("Punjab"))
+
+        val apDistricts = LocationData.getDistricts("Andhra Pradesh")
+        assertNotNull(apDistricts)
+        assertTrue(apDistricts.contains("Guntur"))
+        assertTrue(apDistricts.contains("Krishna"))
+        assertTrue(apDistricts.contains("Anantapur"))
+
+        val puneMarkets = LocationData.getMarkets("Pune")
+        assertNotNull(puneMarkets)
+        assertTrue(puneMarkets.contains("Gultekdi APMC"))
+    }
 }
+
