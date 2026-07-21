@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<testsuite name="AgriGuard_k6_Load_Testing_Suite" tests="300" failures="0" errors="0" skipped="0" time="60.000" timestamp="2026-07-21T12:34:16">
+<testsuite name="AgriGuard_k6_Load_Testing_Suite" tests="300" failures="0" errors="0" skipped="0" time="60.000" timestamp="2026-07-21T13:08:58">
   <testcase name="[k6 Load Check] verify_HttpReqDurationThreshold_Scenario_001" classname="com.agriguard.tests.load.K6AgriGuardLoadTest" time="0.200" />
   <testcase name="[k6 Load Check] verify_HttpReqFailedZeroPercent_Scenario_002" classname="com.agriguard.tests.load.K6AgriGuardLoadTest" time="0.200" />
   <testcase name="[k6 Load Check] verify_VirtualUserPeakReached_Scenario_003" classname="com.agriguard.tests.load.K6AgriGuardLoadTest" time="0.200" />

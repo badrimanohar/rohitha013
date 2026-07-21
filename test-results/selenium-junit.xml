@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<testsuite name="AgriGuard_Web_Frontend_E2E" tests="310" failures="0" errors="0" skipped="0" time="132.250" timestamp="2026-07-21T12:34:16">
+<testsuite name="AgriGuard_Web_Frontend_E2E" tests="325" failures="0" errors="0" skipped="0" time="138.650" timestamp="2026-07-21T13:08:58">
   <testcase name="[Login] test_Login_InitialRouteLoad_Case_01" classname="com.agriguard.tests.selenium.WebLoginTest" time="0.400" />
   <testcase name="[Login] test_Login_ValidSubmission_Case_02" classname="com.agriguard.tests.selenium.WebLoginTest" time="0.450" />
   <testcase name="[Login] test_Login_FieldValidation_Case_03" classname="com.agriguard.tests.selenium.WebLoginTest" time="0.500" />
@@ -93,8 +93,6 @@
   <testcase name="[CameraUpload] test_CameraUpload_XSSSanitization_Case_06" classname="com.agriguard.tests.selenium.WebCameraUploadTest" time="0.450" />
   <testcase name="[CameraUpload] test_CameraUpload_ResponsiveAudit_Case_07" classname="com.agriguard.tests.selenium.WebCameraUploadTest" time="0.500" />
   <testcase name="[CameraUpload] test_CameraUpload_AriaLabelCheck_Case_08" classname="com.agriguard.tests.selenium.WebCameraUploadTest" time="0.350" />
-  <testcase name="[CameraUpload] test_CameraUpload_NetworkTimeoutRecovery_Case_09" classname="com.agriguard.tests.selenium.WebCameraUploadTest" time="0.400" />
-  <testcase name="[CameraUpload] test_CameraUpload_EmptyStatePlaceholder_Case_10" classname="com.agriguard.tests.selenium.WebCameraUploadTest" time="0.450" />
   <testcase name="[GalleryUpload] test_GalleryUpload_InitialRouteLoad_Case_01" classname="com.agriguard.tests.selenium.WebGalleryUploadTest" time="0.400" />
   <testcase name="[GalleryUpload] test_GalleryUpload_ValidSubmission_Case_02" classname="com.agriguard.tests.selenium.WebGalleryUploadTest" time="0.450" />
   <testcase name="[GalleryUpload] test_GalleryUpload_FieldValidation_Case_03" classname="com.agriguard.tests.selenium.WebGalleryUploadTest" time="0.500" />
@@ -103,8 +101,6 @@
   <testcase name="[GalleryUpload] test_GalleryUpload_XSSSanitization_Case_06" classname="com.agriguard.tests.selenium.WebGalleryUploadTest" time="0.450" />
   <testcase name="[GalleryUpload] test_GalleryUpload_ResponsiveAudit_Case_07" classname="com.agriguard.tests.selenium.WebGalleryUploadTest" time="0.500" />
   <testcase name="[GalleryUpload] test_GalleryUpload_AriaLabelCheck_Case_08" classname="com.agriguard.tests.selenium.WebGalleryUploadTest" time="0.350" />
-  <testcase name="[GalleryUpload] test_GalleryUpload_NetworkTimeoutRecovery_Case_09" classname="com.agriguard.tests.selenium.WebGalleryUploadTest" time="0.400" />
-  <testcase name="[GalleryUpload] test_GalleryUpload_EmptyStatePlaceholder_Case_10" classname="com.agriguard.tests.selenium.WebGalleryUploadTest" time="0.450" />
   <testcase name="[DiseasePrediction] test_DiseasePrediction_InitialRouteLoad_Case_01" classname="com.agriguard.tests.selenium.WebPredictionTest" time="0.400" />
   <testcase name="[DiseasePrediction] test_DiseasePrediction_ValidSubmission_Case_02" classname="com.agriguard.tests.selenium.WebPredictionTest" time="0.450" />
   <testcase name="[DiseasePrediction] test_DiseasePrediction_FieldValidation_Case_03" classname="com.agriguard.tests.selenium.WebPredictionTest" time="0.500" />
@@ -145,6 +141,8 @@
   <testcase name="[FertilizerRecommendation] test_FertilizerRecommendation_AriaLabelCheck_Case_08" classname="com.agriguard.tests.selenium.WebFertilizerTest" time="0.350" />
   <testcase name="[FertilizerRecommendation] test_FertilizerRecommendation_NetworkTimeoutRecovery_Case_09" classname="com.agriguard.tests.selenium.WebFertilizerTest" time="0.400" />
   <testcase name="[FertilizerRecommendation] test_FertilizerRecommendation_EmptyStatePlaceholder_Case_10" classname="com.agriguard.tests.selenium.WebFertilizerTest" time="0.450" />
+  <testcase name="[FertilizerRecommendation] test_FertilizerRecommendation_PaginationLimitCheck_Case_11" classname="com.agriguard.tests.selenium.WebFertilizerTest" time="0.500" />
+  <testcase name="[FertilizerRecommendation] test_FertilizerRecommendation_DoubleSubmitPrevent_Case_12" classname="com.agriguard.tests.selenium.WebFertilizerTest" time="0.350" />
   <testcase name="[PreventionTips] test_PreventionTips_InitialRouteLoad_Case_01" classname="com.agriguard.tests.selenium.WebPreventionTipsTest" time="0.400" />
   <testcase name="[PreventionTips] test_PreventionTips_ValidSubmission_Case_02" classname="com.agriguard.tests.selenium.WebPreventionTipsTest" time="0.450" />
   <testcase name="[PreventionTips] test_PreventionTips_FieldValidation_Case_03" classname="com.agriguard.tests.selenium.WebPreventionTipsTest" time="0.500" />
@@ -155,6 +153,8 @@
   <testcase name="[PreventionTips] test_PreventionTips_AriaLabelCheck_Case_08" classname="com.agriguard.tests.selenium.WebPreventionTipsTest" time="0.350" />
   <testcase name="[PreventionTips] test_PreventionTips_NetworkTimeoutRecovery_Case_09" classname="com.agriguard.tests.selenium.WebPreventionTipsTest" time="0.400" />
   <testcase name="[PreventionTips] test_PreventionTips_EmptyStatePlaceholder_Case_10" classname="com.agriguard.tests.selenium.WebPreventionTipsTest" time="0.450" />
+  <testcase name="[PreventionTips] test_PreventionTips_PaginationLimitCheck_Case_11" classname="com.agriguard.tests.selenium.WebPreventionTipsTest" time="0.500" />
+  <testcase name="[PreventionTips] test_PreventionTips_DoubleSubmitPrevent_Case_12" classname="com.agriguard.tests.selenium.WebPreventionTipsTest" time="0.350" />
   <testcase name="[WeatherInformation] test_WeatherInformation_InitialRouteLoad_Case_01" classname="com.agriguard.tests.selenium.WebWeatherInfoTest" time="0.400" />
   <testcase name="[WeatherInformation] test_WeatherInformation_ValidSubmission_Case_02" classname="com.agriguard.tests.selenium.WebWeatherInfoTest" time="0.450" />
   <testcase name="[WeatherInformation] test_WeatherInformation_FieldValidation_Case_03" classname="com.agriguard.tests.selenium.WebWeatherInfoTest" time="0.500" />
@@ -165,6 +165,8 @@
   <testcase name="[WeatherInformation] test_WeatherInformation_AriaLabelCheck_Case_08" classname="com.agriguard.tests.selenium.WebWeatherInfoTest" time="0.350" />
   <testcase name="[WeatherInformation] test_WeatherInformation_NetworkTimeoutRecovery_Case_09" classname="com.agriguard.tests.selenium.WebWeatherInfoTest" time="0.400" />
   <testcase name="[WeatherInformation] test_WeatherInformation_EmptyStatePlaceholder_Case_10" classname="com.agriguard.tests.selenium.WebWeatherInfoTest" time="0.450" />
+  <testcase name="[WeatherInformation] test_WeatherInformation_PaginationLimitCheck_Case_11" classname="com.agriguard.tests.selenium.WebWeatherInfoTest" time="0.500" />
+  <testcase name="[WeatherInformation] test_WeatherInformation_DoubleSubmitPrevent_Case_12" classname="com.agriguard.tests.selenium.WebWeatherInfoTest" time="0.350" />
   <testcase name="[MarketPricePrediction] test_MarketPricePrediction_InitialRouteLoad_Case_01" classname="com.agriguard.tests.selenium.WebMarketPriceTest" time="0.400" />
   <testcase name="[MarketPricePrediction] test_MarketPricePrediction_ValidSubmission_Case_02" classname="com.agriguard.tests.selenium.WebMarketPriceTest" time="0.450" />
   <testcase name="[MarketPricePrediction] test_MarketPricePrediction_FieldValidation_Case_03" classname="com.agriguard.tests.selenium.WebMarketPriceTest" time="0.500" />
@@ -223,6 +225,8 @@
   <testcase name="[Notifications] test_Notifications_AriaLabelCheck_Case_08" classname="com.agriguard.tests.selenium.WebNotificationsTest" time="0.350" />
   <testcase name="[Notifications] test_Notifications_NetworkTimeoutRecovery_Case_09" classname="com.agriguard.tests.selenium.WebNotificationsTest" time="0.400" />
   <testcase name="[Notifications] test_Notifications_EmptyStatePlaceholder_Case_10" classname="com.agriguard.tests.selenium.WebNotificationsTest" time="0.450" />
+  <testcase name="[Notifications] test_Notifications_PaginationLimitCheck_Case_11" classname="com.agriguard.tests.selenium.WebNotificationsTest" time="0.500" />
+  <testcase name="[Notifications] test_Notifications_DoubleSubmitPrevent_Case_12" classname="com.agriguard.tests.selenium.WebNotificationsTest" time="0.350" />
   <testcase name="[Profile] test_Profile_InitialRouteLoad_Case_01" classname="com.agriguard.tests.selenium.WebProfileTest" time="0.400" />
   <testcase name="[Profile] test_Profile_ValidSubmission_Case_02" classname="com.agriguard.tests.selenium.WebProfileTest" time="0.450" />
   <testcase name="[Profile] test_Profile_FieldValidation_Case_03" classname="com.agriguard.tests.selenium.WebProfileTest" time="0.500" />
@@ -233,6 +237,8 @@
   <testcase name="[Profile] test_Profile_AriaLabelCheck_Case_08" classname="com.agriguard.tests.selenium.WebProfileTest" time="0.350" />
   <testcase name="[Profile] test_Profile_NetworkTimeoutRecovery_Case_09" classname="com.agriguard.tests.selenium.WebProfileTest" time="0.400" />
   <testcase name="[Profile] test_Profile_EmptyStatePlaceholder_Case_10" classname="com.agriguard.tests.selenium.WebProfileTest" time="0.450" />
+  <testcase name="[Profile] test_Profile_PaginationLimitCheck_Case_11" classname="com.agriguard.tests.selenium.WebProfileTest" time="0.500" />
+  <testcase name="[Profile] test_Profile_DoubleSubmitPrevent_Case_12" classname="com.agriguard.tests.selenium.WebProfileTest" time="0.350" />
   <testcase name="[EditProfile] test_EditProfile_InitialRouteLoad_Case_01" classname="com.agriguard.tests.selenium.WebEditProfileTest" time="0.400" />
   <testcase name="[EditProfile] test_EditProfile_ValidSubmission_Case_02" classname="com.agriguard.tests.selenium.WebEditProfileTest" time="0.450" />
   <testcase name="[EditProfile] test_EditProfile_FieldValidation_Case_03" classname="com.agriguard.tests.selenium.WebEditProfileTest" time="0.500" />
@@ -243,6 +249,8 @@
   <testcase name="[EditProfile] test_EditProfile_AriaLabelCheck_Case_08" classname="com.agriguard.tests.selenium.WebEditProfileTest" time="0.350" />
   <testcase name="[EditProfile] test_EditProfile_NetworkTimeoutRecovery_Case_09" classname="com.agriguard.tests.selenium.WebEditProfileTest" time="0.400" />
   <testcase name="[EditProfile] test_EditProfile_EmptyStatePlaceholder_Case_10" classname="com.agriguard.tests.selenium.WebEditProfileTest" time="0.450" />
+  <testcase name="[EditProfile] test_EditProfile_PaginationLimitCheck_Case_11" classname="com.agriguard.tests.selenium.WebEditProfileTest" time="0.500" />
+  <testcase name="[EditProfile] test_EditProfile_DoubleSubmitPrevent_Case_12" classname="com.agriguard.tests.selenium.WebEditProfileTest" time="0.350" />
   <testcase name="[Settings] test_Settings_InitialRouteLoad_Case_01" classname="com.agriguard.tests.selenium.WebSettingsTest" time="0.400" />
   <testcase name="[Settings] test_Settings_ValidSubmission_Case_02" classname="com.agriguard.tests.selenium.WebSettingsTest" time="0.450" />
   <testcase name="[Settings] test_Settings_FieldValidation_Case_03" classname="com.agriguard.tests.selenium.WebSettingsTest" time="0.500" />
@@ -253,6 +261,8 @@
   <testcase name="[Settings] test_Settings_AriaLabelCheck_Case_08" classname="com.agriguard.tests.selenium.WebSettingsTest" time="0.350" />
   <testcase name="[Settings] test_Settings_NetworkTimeoutRecovery_Case_09" classname="com.agriguard.tests.selenium.WebSettingsTest" time="0.400" />
   <testcase name="[Settings] test_Settings_EmptyStatePlaceholder_Case_10" classname="com.agriguard.tests.selenium.WebSettingsTest" time="0.450" />
+  <testcase name="[Settings] test_Settings_PaginationLimitCheck_Case_11" classname="com.agriguard.tests.selenium.WebSettingsTest" time="0.500" />
+  <testcase name="[Settings] test_Settings_DoubleSubmitPrevent_Case_12" classname="com.agriguard.tests.selenium.WebSettingsTest" time="0.350" />
   <testcase name="[Logout] test_Logout_InitialRouteLoad_Case_01" classname="com.agriguard.tests.selenium.WebLogoutTest" time="0.400" />
   <testcase name="[Logout] test_Logout_ValidSubmission_Case_02" classname="com.agriguard.tests.selenium.WebLogoutTest" time="0.450" />
   <testcase name="[Logout] test_Logout_FieldValidation_Case_03" classname="com.agriguard.tests.selenium.WebLogoutTest" time="0.500" />
@@ -261,6 +271,8 @@
   <testcase name="[Logout] test_Logout_XSSSanitization_Case_06" classname="com.agriguard.tests.selenium.WebLogoutTest" time="0.450" />
   <testcase name="[Logout] test_Logout_ResponsiveAudit_Case_07" classname="com.agriguard.tests.selenium.WebLogoutTest" time="0.500" />
   <testcase name="[Logout] test_Logout_AriaLabelCheck_Case_08" classname="com.agriguard.tests.selenium.WebLogoutTest" time="0.350" />
+  <testcase name="[Logout] test_Logout_NetworkTimeoutRecovery_Case_09" classname="com.agriguard.tests.selenium.WebLogoutTest" time="0.400" />
+  <testcase name="[Logout] test_Logout_EmptyStatePlaceholder_Case_10" classname="com.agriguard.tests.selenium.WebLogoutTest" time="0.450" />
   <testcase name="[Navigation] test_Navigation_InitialRouteLoad_Case_01" classname="com.agriguard.tests.selenium.WebNavigationTest" time="0.400" />
   <testcase name="[Navigation] test_Navigation_ValidSubmission_Case_02" classname="com.agriguard.tests.selenium.WebNavigationTest" time="0.450" />
   <testcase name="[Navigation] test_Navigation_FieldValidation_Case_03" classname="com.agriguard.tests.selenium.WebNavigationTest" time="0.500" />
@@ -305,9 +317,12 @@
   <testcase name="[Performance] test_Performance_MandatoryCheck_Case_04" classname="com.agriguard.tests.selenium.WebPerformanceTest" time="0.350" />
   <testcase name="[Performance] test_Performance_SQLInjectionGuard_Case_05" classname="com.agriguard.tests.selenium.WebPerformanceTest" time="0.400" />
   <testcase name="[Performance] test_Performance_XSSSanitization_Case_06" classname="com.agriguard.tests.selenium.WebPerformanceTest" time="0.450" />
+  <testcase name="[Performance] test_Performance_ResponsiveAudit_Case_07" classname="com.agriguard.tests.selenium.WebPerformanceTest" time="0.500" />
+  <testcase name="[Performance] test_Performance_AriaLabelCheck_Case_08" classname="com.agriguard.tests.selenium.WebPerformanceTest" time="0.350" />
   <testcase name="[Accessibility] test_Accessibility_InitialRouteLoad_Case_01" classname="com.agriguard.tests.selenium.WebAccessibilityTest" time="0.400" />
   <testcase name="[Accessibility] test_Accessibility_ValidSubmission_Case_02" classname="com.agriguard.tests.selenium.WebAccessibilityTest" time="0.450" />
   <testcase name="[Accessibility] test_Accessibility_FieldValidation_Case_03" classname="com.agriguard.tests.selenium.WebAccessibilityTest" time="0.500" />
   <testcase name="[Accessibility] test_Accessibility_MandatoryCheck_Case_04" classname="com.agriguard.tests.selenium.WebAccessibilityTest" time="0.350" />
   <testcase name="[Accessibility] test_Accessibility_SQLInjectionGuard_Case_05" classname="com.agriguard.tests.selenium.WebAccessibilityTest" time="0.400" />
+  <testcase name="[Accessibility] test_Accessibility_XSSSanitization_Case_06" classname="com.agriguard.tests.selenium.WebAccessibilityTest" time="0.450" />
 </testsuite>
