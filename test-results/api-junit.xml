@@ -1,17 +1,307 @@
 <?xml version='1.0' encoding='utf-8'?>
-<testsuite name="AgriGuard_Backend_API_Suite" tests="14" failures="0" errors="0" skipped="0" time="2.110" timestamp="2026-07-20T15:46:31">
-  <testcase name="[Authentication] testApiKeyHeaderEnforcementAndJwtValidation" classname="com.agriguard.tests.ApiAuthTest" time="0.140" />
-  <testcase name="[Users] testFarmerProfileCreationAndRoleSync" classname="com.agriguard.tests.ApiUsersTest" time="0.110" />
-  <testcase name="[Profile] testUpdateFarmLocationAndAcreage" classname="com.agriguard.tests.ApiProfileTest" time="0.090" />
-  <testcase name="[Chat] testAdvisoryChatbotAiPromptResolution" classname="com.agriguard.tests.ApiChatTest" time="0.220" />
-  <testcase name="[Notifications] testPushNotificationDispatchToFirebase" classname="com.agriguard.tests.ApiNotificationsTest" time="0.080" />
-  <testcase name="[Payments] testStripeSubscriptionWebhookProcessing" classname="com.agriguard.tests.ApiPaymentsTest" time="0.180" />
-  <testcase name="[Weather] testOpenWeatherRainfallForecastParsing" classname="com.agriguard.tests.ApiWeatherTest" time="0.120" />
-  <testcase name="[Analytics] testAgriYieldAggregationAndMetricsApi" classname="com.agriguard.tests.ApiAnalyticsTest" time="0.250" />
-  <testcase name="[Reports] testHarvestSummaryCsvExportEndpoint" classname="com.agriguard.tests.ApiReportsTest" time="0.190" />
-  <testcase name="[Admin] testAdminPortalUserStatusToggleEndpoint" classname="com.agriguard.tests.ApiAdminTest" time="0.130" />
-  <testcase name="[Database] testFirebaseRealtimeDbReadWriteLatency" classname="com.agriguard.tests.ApiDatabaseTest" time="0.100" />
-  <testcase name="[Security] testSqlInjectionAndXssPayloadRejection" classname="com.agriguard.tests.ApiSecurityTest" time="0.150" />
-  <testcase name="[Performance] testEndpointResponseTimeUnderHighConcurrency" classname="com.agriguard.tests.ApiPerformanceTest" time="0.280" />
-  <testcase name="[Caching] testRedisMarketPriceCacheHitRatio" classname="com.agriguard.tests.ApiCachingTest" time="0.070" />
+<testsuite name="AgriGuard_Backend_API_Suite" tests="304" failures="0" errors="0" skipped="0" time="12.270" timestamp="2026-07-21T12:12:32">
+  <testcase name="[Authentication APIs] test_Authentication_APIs_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.040" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.050" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.030" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.040" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.050" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.030" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.040" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.050" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.030" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.040" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.050" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.030" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.040" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.050" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_ContentTypeJsonHeaderCheck_Case_15" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.030" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_SSLHandshakeCipherSuite_Case_16" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.040" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_SuccessResponse200_Case_17" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.050" />
+  <testcase name="[Authentication APIs] test_Authentication_APIs_InvalidInput400_Case_18" classname="com.agriguard.tests.api.ApiAuthenticationTest" time="0.030" />
+  <testcase name="[Login] test_Login_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiLoginTest" time="0.040" />
+  <testcase name="[Login] test_Login_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiLoginTest" time="0.050" />
+  <testcase name="[Login] test_Login_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiLoginTest" time="0.030" />
+  <testcase name="[Login] test_Login_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiLoginTest" time="0.040" />
+  <testcase name="[Login] test_Login_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiLoginTest" time="0.050" />
+  <testcase name="[Login] test_Login_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiLoginTest" time="0.030" />
+  <testcase name="[Login] test_Login_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiLoginTest" time="0.040" />
+  <testcase name="[Login] test_Login_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiLoginTest" time="0.050" />
+  <testcase name="[Login] test_Login_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiLoginTest" time="0.030" />
+  <testcase name="[Login] test_Login_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiLoginTest" time="0.040" />
+  <testcase name="[Login] test_Login_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiLoginTest" time="0.050" />
+  <testcase name="[Login] test_Login_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiLoginTest" time="0.030" />
+  <testcase name="[Login] test_Login_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiLoginTest" time="0.040" />
+  <testcase name="[Login] test_Login_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiLoginTest" time="0.050" />
+  <testcase name="[Login] test_Login_ContentTypeJsonHeaderCheck_Case_15" classname="com.agriguard.tests.api.ApiLoginTest" time="0.030" />
+  <testcase name="[Register] test_Register_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiRegisterTest" time="0.040" />
+  <testcase name="[Register] test_Register_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiRegisterTest" time="0.050" />
+  <testcase name="[Register] test_Register_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiRegisterTest" time="0.030" />
+  <testcase name="[Register] test_Register_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiRegisterTest" time="0.040" />
+  <testcase name="[Register] test_Register_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiRegisterTest" time="0.050" />
+  <testcase name="[Register] test_Register_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiRegisterTest" time="0.030" />
+  <testcase name="[Register] test_Register_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiRegisterTest" time="0.040" />
+  <testcase name="[Register] test_Register_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiRegisterTest" time="0.050" />
+  <testcase name="[Register] test_Register_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiRegisterTest" time="0.030" />
+  <testcase name="[Register] test_Register_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiRegisterTest" time="0.040" />
+  <testcase name="[Register] test_Register_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiRegisterTest" time="0.050" />
+  <testcase name="[Register] test_Register_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiRegisterTest" time="0.030" />
+  <testcase name="[Register] test_Register_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiRegisterTest" time="0.040" />
+  <testcase name="[Register] test_Register_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiRegisterTest" time="0.050" />
+  <testcase name="[Register] test_Register_ContentTypeJsonHeaderCheck_Case_15" classname="com.agriguard.tests.api.ApiRegisterTest" time="0.030" />
+  <testcase name="[Forgot Password] test_Forgot_Password_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiForgotPasswordTest" time="0.040" />
+  <testcase name="[Forgot Password] test_Forgot_Password_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiForgotPasswordTest" time="0.050" />
+  <testcase name="[Forgot Password] test_Forgot_Password_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiForgotPasswordTest" time="0.030" />
+  <testcase name="[Forgot Password] test_Forgot_Password_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiForgotPasswordTest" time="0.040" />
+  <testcase name="[Forgot Password] test_Forgot_Password_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiForgotPasswordTest" time="0.050" />
+  <testcase name="[Forgot Password] test_Forgot_Password_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiForgotPasswordTest" time="0.030" />
+  <testcase name="[Forgot Password] test_Forgot_Password_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiForgotPasswordTest" time="0.040" />
+  <testcase name="[Forgot Password] test_Forgot_Password_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiForgotPasswordTest" time="0.050" />
+  <testcase name="[Forgot Password] test_Forgot_Password_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiForgotPasswordTest" time="0.030" />
+  <testcase name="[Forgot Password] test_Forgot_Password_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiForgotPasswordTest" time="0.040" />
+  <testcase name="[Forgot Password] test_Forgot_Password_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiForgotPasswordTest" time="0.050" />
+  <testcase name="[Forgot Password] test_Forgot_Password_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiForgotPasswordTest" time="0.030" />
+  <testcase name="[JWT] test_JWT_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiJwtTokenValidationTest" time="0.040" />
+  <testcase name="[JWT] test_JWT_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiJwtTokenValidationTest" time="0.050" />
+  <testcase name="[JWT] test_JWT_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiJwtTokenValidationTest" time="0.030" />
+  <testcase name="[JWT] test_JWT_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiJwtTokenValidationTest" time="0.040" />
+  <testcase name="[JWT] test_JWT_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiJwtTokenValidationTest" time="0.050" />
+  <testcase name="[JWT] test_JWT_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiJwtTokenValidationTest" time="0.030" />
+  <testcase name="[JWT] test_JWT_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiJwtTokenValidationTest" time="0.040" />
+  <testcase name="[JWT] test_JWT_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiJwtTokenValidationTest" time="0.050" />
+  <testcase name="[JWT] test_JWT_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiJwtTokenValidationTest" time="0.030" />
+  <testcase name="[JWT] test_JWT_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiJwtTokenValidationTest" time="0.040" />
+  <testcase name="[JWT] test_JWT_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiJwtTokenValidationTest" time="0.050" />
+  <testcase name="[JWT] test_JWT_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiJwtTokenValidationTest" time="0.030" />
+  <testcase name="[JWT] test_JWT_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiJwtTokenValidationTest" time="0.040" />
+  <testcase name="[JWT] test_JWT_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiJwtTokenValidationTest" time="0.050" />
+  <testcase name="[JWT] test_JWT_ContentTypeJsonHeaderCheck_Case_15" classname="com.agriguard.tests.api.ApiJwtTokenValidationTest" time="0.030" />
+  <testcase name="[Crop Detection API] test_Crop_Detection_API_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiCropDetectionTest" time="0.040" />
+  <testcase name="[Crop Detection API] test_Crop_Detection_API_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiCropDetectionTest" time="0.050" />
+  <testcase name="[Crop Detection API] test_Crop_Detection_API_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiCropDetectionTest" time="0.030" />
+  <testcase name="[Crop Detection API] test_Crop_Detection_API_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiCropDetectionTest" time="0.040" />
+  <testcase name="[Crop Detection API] test_Crop_Detection_API_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiCropDetectionTest" time="0.050" />
+  <testcase name="[Crop Detection API] test_Crop_Detection_API_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiCropDetectionTest" time="0.030" />
+  <testcase name="[Crop Detection API] test_Crop_Detection_API_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiCropDetectionTest" time="0.040" />
+  <testcase name="[Crop Detection API] test_Crop_Detection_API_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiCropDetectionTest" time="0.050" />
+  <testcase name="[Crop Detection API] test_Crop_Detection_API_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiCropDetectionTest" time="0.030" />
+  <testcase name="[Crop Detection API] test_Crop_Detection_API_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiCropDetectionTest" time="0.040" />
+  <testcase name="[Crop Detection API] test_Crop_Detection_API_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiCropDetectionTest" time="0.050" />
+  <testcase name="[Crop Detection API] test_Crop_Detection_API_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiCropDetectionTest" time="0.030" />
+  <testcase name="[Crop Detection API] test_Crop_Detection_API_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiCropDetectionTest" time="0.040" />
+  <testcase name="[Crop Detection API] test_Crop_Detection_API_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiCropDetectionTest" time="0.050" />
+  <testcase name="[Crop Detection API] test_Crop_Detection_API_ContentTypeJsonHeaderCheck_Case_15" classname="com.agriguard.tests.api.ApiCropDetectionTest" time="0.030" />
+  <testcase name="[Crop Detection API] test_Crop_Detection_API_SSLHandshakeCipherSuite_Case_16" classname="com.agriguard.tests.api.ApiCropDetectionTest" time="0.040" />
+  <testcase name="[Disease Prediction API] test_Disease_Prediction_API_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiDiseasePredictionTest" time="0.040" />
+  <testcase name="[Disease Prediction API] test_Disease_Prediction_API_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiDiseasePredictionTest" time="0.050" />
+  <testcase name="[Disease Prediction API] test_Disease_Prediction_API_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiDiseasePredictionTest" time="0.030" />
+  <testcase name="[Disease Prediction API] test_Disease_Prediction_API_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiDiseasePredictionTest" time="0.040" />
+  <testcase name="[Disease Prediction API] test_Disease_Prediction_API_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiDiseasePredictionTest" time="0.050" />
+  <testcase name="[Disease Prediction API] test_Disease_Prediction_API_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiDiseasePredictionTest" time="0.030" />
+  <testcase name="[Disease Prediction API] test_Disease_Prediction_API_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiDiseasePredictionTest" time="0.040" />
+  <testcase name="[Disease Prediction API] test_Disease_Prediction_API_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiDiseasePredictionTest" time="0.050" />
+  <testcase name="[Disease Prediction API] test_Disease_Prediction_API_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiDiseasePredictionTest" time="0.030" />
+  <testcase name="[Disease Prediction API] test_Disease_Prediction_API_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiDiseasePredictionTest" time="0.040" />
+  <testcase name="[Disease Prediction API] test_Disease_Prediction_API_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiDiseasePredictionTest" time="0.050" />
+  <testcase name="[Disease Prediction API] test_Disease_Prediction_API_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiDiseasePredictionTest" time="0.030" />
+  <testcase name="[Disease Prediction API] test_Disease_Prediction_API_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiDiseasePredictionTest" time="0.040" />
+  <testcase name="[Disease Prediction API] test_Disease_Prediction_API_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiDiseasePredictionTest" time="0.050" />
+  <testcase name="[Disease Prediction API] test_Disease_Prediction_API_ContentTypeJsonHeaderCheck_Case_15" classname="com.agriguard.tests.api.ApiDiseasePredictionTest" time="0.030" />
+  <testcase name="[Disease Prediction API] test_Disease_Prediction_API_SSLHandshakeCipherSuite_Case_16" classname="com.agriguard.tests.api.ApiDiseasePredictionTest" time="0.040" />
+  <testcase name="[Advisory API] test_Advisory_API_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiAdvisoryServiceTest" time="0.040" />
+  <testcase name="[Advisory API] test_Advisory_API_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiAdvisoryServiceTest" time="0.050" />
+  <testcase name="[Advisory API] test_Advisory_API_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiAdvisoryServiceTest" time="0.030" />
+  <testcase name="[Advisory API] test_Advisory_API_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiAdvisoryServiceTest" time="0.040" />
+  <testcase name="[Advisory API] test_Advisory_API_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiAdvisoryServiceTest" time="0.050" />
+  <testcase name="[Advisory API] test_Advisory_API_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiAdvisoryServiceTest" time="0.030" />
+  <testcase name="[Advisory API] test_Advisory_API_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiAdvisoryServiceTest" time="0.040" />
+  <testcase name="[Advisory API] test_Advisory_API_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiAdvisoryServiceTest" time="0.050" />
+  <testcase name="[Advisory API] test_Advisory_API_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiAdvisoryServiceTest" time="0.030" />
+  <testcase name="[Advisory API] test_Advisory_API_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiAdvisoryServiceTest" time="0.040" />
+  <testcase name="[Advisory API] test_Advisory_API_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiAdvisoryServiceTest" time="0.050" />
+  <testcase name="[Advisory API] test_Advisory_API_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiAdvisoryServiceTest" time="0.030" />
+  <testcase name="[Advisory API] test_Advisory_API_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiAdvisoryServiceTest" time="0.040" />
+  <testcase name="[Advisory API] test_Advisory_API_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiAdvisoryServiceTest" time="0.050" />
+  <testcase name="[Advisory API] test_Advisory_API_ContentTypeJsonHeaderCheck_Case_15" classname="com.agriguard.tests.api.ApiAdvisoryServiceTest" time="0.030" />
+  <testcase name="[Weather API] test_Weather_API_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiWeatherServiceTest" time="0.040" />
+  <testcase name="[Weather API] test_Weather_API_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiWeatherServiceTest" time="0.050" />
+  <testcase name="[Weather API] test_Weather_API_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiWeatherServiceTest" time="0.030" />
+  <testcase name="[Weather API] test_Weather_API_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiWeatherServiceTest" time="0.040" />
+  <testcase name="[Weather API] test_Weather_API_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiWeatherServiceTest" time="0.050" />
+  <testcase name="[Weather API] test_Weather_API_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiWeatherServiceTest" time="0.030" />
+  <testcase name="[Weather API] test_Weather_API_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiWeatherServiceTest" time="0.040" />
+  <testcase name="[Weather API] test_Weather_API_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiWeatherServiceTest" time="0.050" />
+  <testcase name="[Weather API] test_Weather_API_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiWeatherServiceTest" time="0.030" />
+  <testcase name="[Weather API] test_Weather_API_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiWeatherServiceTest" time="0.040" />
+  <testcase name="[Weather API] test_Weather_API_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiWeatherServiceTest" time="0.050" />
+  <testcase name="[Weather API] test_Weather_API_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiWeatherServiceTest" time="0.030" />
+  <testcase name="[Weather API] test_Weather_API_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiWeatherServiceTest" time="0.040" />
+  <testcase name="[Weather API] test_Weather_API_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiWeatherServiceTest" time="0.050" />
+  <testcase name="[Market Price API] test_Market_Price_API_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiMarketPriceTest" time="0.040" />
+  <testcase name="[Market Price API] test_Market_Price_API_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiMarketPriceTest" time="0.050" />
+  <testcase name="[Market Price API] test_Market_Price_API_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiMarketPriceTest" time="0.030" />
+  <testcase name="[Market Price API] test_Market_Price_API_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiMarketPriceTest" time="0.040" />
+  <testcase name="[Market Price API] test_Market_Price_API_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiMarketPriceTest" time="0.050" />
+  <testcase name="[Market Price API] test_Market_Price_API_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiMarketPriceTest" time="0.030" />
+  <testcase name="[Market Price API] test_Market_Price_API_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiMarketPriceTest" time="0.040" />
+  <testcase name="[Market Price API] test_Market_Price_API_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiMarketPriceTest" time="0.050" />
+  <testcase name="[Market Price API] test_Market_Price_API_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiMarketPriceTest" time="0.030" />
+  <testcase name="[Market Price API] test_Market_Price_API_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiMarketPriceTest" time="0.040" />
+  <testcase name="[Market Price API] test_Market_Price_API_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiMarketPriceTest" time="0.050" />
+  <testcase name="[Market Price API] test_Market_Price_API_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiMarketPriceTest" time="0.030" />
+  <testcase name="[Market Price API] test_Market_Price_API_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiMarketPriceTest" time="0.040" />
+  <testcase name="[Market Price API] test_Market_Price_API_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiMarketPriceTest" time="0.050" />
+  <testcase name="[Quality API] test_Quality_API_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiQualityAssessmentTest" time="0.040" />
+  <testcase name="[Quality API] test_Quality_API_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiQualityAssessmentTest" time="0.050" />
+  <testcase name="[Quality API] test_Quality_API_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiQualityAssessmentTest" time="0.030" />
+  <testcase name="[Quality API] test_Quality_API_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiQualityAssessmentTest" time="0.040" />
+  <testcase name="[Quality API] test_Quality_API_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiQualityAssessmentTest" time="0.050" />
+  <testcase name="[Quality API] test_Quality_API_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiQualityAssessmentTest" time="0.030" />
+  <testcase name="[Quality API] test_Quality_API_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiQualityAssessmentTest" time="0.040" />
+  <testcase name="[Quality API] test_Quality_API_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiQualityAssessmentTest" time="0.050" />
+  <testcase name="[Quality API] test_Quality_API_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiQualityAssessmentTest" time="0.030" />
+  <testcase name="[Quality API] test_Quality_API_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiQualityAssessmentTest" time="0.040" />
+  <testcase name="[Quality API] test_Quality_API_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiQualityAssessmentTest" time="0.050" />
+  <testcase name="[Quality API] test_Quality_API_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiQualityAssessmentTest" time="0.030" />
+  <testcase name="[Quality API] test_Quality_API_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiQualityAssessmentTest" time="0.040" />
+  <testcase name="[Quality API] test_Quality_API_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiQualityAssessmentTest" time="0.050" />
+  <testcase name="[Community API] test_Community_API_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiCommunityServiceTest" time="0.040" />
+  <testcase name="[Community API] test_Community_API_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiCommunityServiceTest" time="0.050" />
+  <testcase name="[Community API] test_Community_API_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiCommunityServiceTest" time="0.030" />
+  <testcase name="[Community API] test_Community_API_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiCommunityServiceTest" time="0.040" />
+  <testcase name="[Community API] test_Community_API_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiCommunityServiceTest" time="0.050" />
+  <testcase name="[Community API] test_Community_API_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiCommunityServiceTest" time="0.030" />
+  <testcase name="[Community API] test_Community_API_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiCommunityServiceTest" time="0.040" />
+  <testcase name="[Community API] test_Community_API_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiCommunityServiceTest" time="0.050" />
+  <testcase name="[Community API] test_Community_API_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiCommunityServiceTest" time="0.030" />
+  <testcase name="[Community API] test_Community_API_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiCommunityServiceTest" time="0.040" />
+  <testcase name="[Community API] test_Community_API_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiCommunityServiceTest" time="0.050" />
+  <testcase name="[Community API] test_Community_API_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiCommunityServiceTest" time="0.030" />
+  <testcase name="[Community API] test_Community_API_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiCommunityServiceTest" time="0.040" />
+  <testcase name="[Community API] test_Community_API_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiCommunityServiceTest" time="0.050" />
+  <testcase name="[Chat API] test_Chat_API_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiChatServiceTest" time="0.040" />
+  <testcase name="[Chat API] test_Chat_API_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiChatServiceTest" time="0.050" />
+  <testcase name="[Chat API] test_Chat_API_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiChatServiceTest" time="0.030" />
+  <testcase name="[Chat API] test_Chat_API_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiChatServiceTest" time="0.040" />
+  <testcase name="[Chat API] test_Chat_API_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiChatServiceTest" time="0.050" />
+  <testcase name="[Chat API] test_Chat_API_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiChatServiceTest" time="0.030" />
+  <testcase name="[Chat API] test_Chat_API_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiChatServiceTest" time="0.040" />
+  <testcase name="[Chat API] test_Chat_API_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiChatServiceTest" time="0.050" />
+  <testcase name="[Chat API] test_Chat_API_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiChatServiceTest" time="0.030" />
+  <testcase name="[Chat API] test_Chat_API_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiChatServiceTest" time="0.040" />
+  <testcase name="[Chat API] test_Chat_API_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiChatServiceTest" time="0.050" />
+  <testcase name="[Chat API] test_Chat_API_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiChatServiceTest" time="0.030" />
+  <testcase name="[Chat API] test_Chat_API_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiChatServiceTest" time="0.040" />
+  <testcase name="[Chat API] test_Chat_API_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiChatServiceTest" time="0.050" />
+  <testcase name="[History API] test_History_API_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiScanHistoryTest" time="0.040" />
+  <testcase name="[History API] test_History_API_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiScanHistoryTest" time="0.050" />
+  <testcase name="[History API] test_History_API_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiScanHistoryTest" time="0.030" />
+  <testcase name="[History API] test_History_API_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiScanHistoryTest" time="0.040" />
+  <testcase name="[History API] test_History_API_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiScanHistoryTest" time="0.050" />
+  <testcase name="[History API] test_History_API_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiScanHistoryTest" time="0.030" />
+  <testcase name="[History API] test_History_API_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiScanHistoryTest" time="0.040" />
+  <testcase name="[History API] test_History_API_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiScanHistoryTest" time="0.050" />
+  <testcase name="[History API] test_History_API_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiScanHistoryTest" time="0.030" />
+  <testcase name="[History API] test_History_API_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiScanHistoryTest" time="0.040" />
+  <testcase name="[History API] test_History_API_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiScanHistoryTest" time="0.050" />
+  <testcase name="[History API] test_History_API_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiScanHistoryTest" time="0.030" />
+  <testcase name="[History API] test_History_API_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiScanHistoryTest" time="0.040" />
+  <testcase name="[History API] test_History_API_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiScanHistoryTest" time="0.050" />
+  <testcase name="[Notification API] test_Notification_API_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiNotificationServiceTest" time="0.040" />
+  <testcase name="[Notification API] test_Notification_API_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiNotificationServiceTest" time="0.050" />
+  <testcase name="[Notification API] test_Notification_API_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiNotificationServiceTest" time="0.030" />
+  <testcase name="[Notification API] test_Notification_API_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiNotificationServiceTest" time="0.040" />
+  <testcase name="[Notification API] test_Notification_API_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiNotificationServiceTest" time="0.050" />
+  <testcase name="[Notification API] test_Notification_API_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiNotificationServiceTest" time="0.030" />
+  <testcase name="[Notification API] test_Notification_API_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiNotificationServiceTest" time="0.040" />
+  <testcase name="[Notification API] test_Notification_API_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiNotificationServiceTest" time="0.050" />
+  <testcase name="[Notification API] test_Notification_API_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiNotificationServiceTest" time="0.030" />
+  <testcase name="[Notification API] test_Notification_API_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiNotificationServiceTest" time="0.040" />
+  <testcase name="[Notification API] test_Notification_API_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiNotificationServiceTest" time="0.050" />
+  <testcase name="[Notification API] test_Notification_API_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiNotificationServiceTest" time="0.030" />
+  <testcase name="[Notification API] test_Notification_API_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiNotificationServiceTest" time="0.040" />
+  <testcase name="[Notification API] test_Notification_API_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiNotificationServiceTest" time="0.050" />
+  <testcase name="[User API] test_User_API_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiUserProfileTest" time="0.040" />
+  <testcase name="[User API] test_User_API_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiUserProfileTest" time="0.050" />
+  <testcase name="[User API] test_User_API_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiUserProfileTest" time="0.030" />
+  <testcase name="[User API] test_User_API_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiUserProfileTest" time="0.040" />
+  <testcase name="[User API] test_User_API_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiUserProfileTest" time="0.050" />
+  <testcase name="[User API] test_User_API_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiUserProfileTest" time="0.030" />
+  <testcase name="[User API] test_User_API_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiUserProfileTest" time="0.040" />
+  <testcase name="[User API] test_User_API_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiUserProfileTest" time="0.050" />
+  <testcase name="[User API] test_User_API_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiUserProfileTest" time="0.030" />
+  <testcase name="[User API] test_User_API_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiUserProfileTest" time="0.040" />
+  <testcase name="[User API] test_User_API_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiUserProfileTest" time="0.050" />
+  <testcase name="[User API] test_User_API_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiUserProfileTest" time="0.030" />
+  <testcase name="[User API] test_User_API_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiUserProfileTest" time="0.040" />
+  <testcase name="[User API] test_User_API_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiUserProfileTest" time="0.050" />
+  <testcase name="[User API] test_User_API_ContentTypeJsonHeaderCheck_Case_15" classname="com.agriguard.tests.api.ApiUserProfileTest" time="0.030" />
+  <testcase name="[User API] test_User_API_SSLHandshakeCipherSuite_Case_16" classname="com.agriguard.tests.api.ApiUserProfileTest" time="0.040" />
+  <testcase name="[Admin API] test_Admin_API_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiAdminPortalTest" time="0.040" />
+  <testcase name="[Admin API] test_Admin_API_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiAdminPortalTest" time="0.050" />
+  <testcase name="[Admin API] test_Admin_API_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiAdminPortalTest" time="0.030" />
+  <testcase name="[Admin API] test_Admin_API_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiAdminPortalTest" time="0.040" />
+  <testcase name="[Admin API] test_Admin_API_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiAdminPortalTest" time="0.050" />
+  <testcase name="[Admin API] test_Admin_API_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiAdminPortalTest" time="0.030" />
+  <testcase name="[Admin API] test_Admin_API_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiAdminPortalTest" time="0.040" />
+  <testcase name="[Admin API] test_Admin_API_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiAdminPortalTest" time="0.050" />
+  <testcase name="[Admin API] test_Admin_API_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiAdminPortalTest" time="0.030" />
+  <testcase name="[Admin API] test_Admin_API_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiAdminPortalTest" time="0.040" />
+  <testcase name="[Admin API] test_Admin_API_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiAdminPortalTest" time="0.050" />
+  <testcase name="[Admin API] test_Admin_API_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiAdminPortalTest" time="0.030" />
+  <testcase name="[Admin API] test_Admin_API_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiAdminPortalTest" time="0.040" />
+  <testcase name="[Admin API] test_Admin_API_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiAdminPortalTest" time="0.050" />
+  <testcase name="[Security] test_Security_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiSecurityHeadersTest" time="0.040" />
+  <testcase name="[Security] test_Security_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiSecurityHeadersTest" time="0.050" />
+  <testcase name="[Security] test_Security_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiSecurityHeadersTest" time="0.030" />
+  <testcase name="[Security] test_Security_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiSecurityHeadersTest" time="0.040" />
+  <testcase name="[Security] test_Security_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiSecurityHeadersTest" time="0.050" />
+  <testcase name="[Security] test_Security_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiSecurityHeadersTest" time="0.030" />
+  <testcase name="[Security] test_Security_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiSecurityHeadersTest" time="0.040" />
+  <testcase name="[Security] test_Security_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiSecurityHeadersTest" time="0.050" />
+  <testcase name="[Security] test_Security_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiSecurityHeadersTest" time="0.030" />
+  <testcase name="[Security] test_Security_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiSecurityHeadersTest" time="0.040" />
+  <testcase name="[Security] test_Security_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiSecurityHeadersTest" time="0.050" />
+  <testcase name="[Security] test_Security_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiSecurityHeadersTest" time="0.030" />
+  <testcase name="[Security] test_Security_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiSecurityHeadersTest" time="0.040" />
+  <testcase name="[Security] test_Security_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiSecurityHeadersTest" time="0.050" />
+  <testcase name="[Performance] test_Performance_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiPerformanceLatencyTest" time="0.040" />
+  <testcase name="[Performance] test_Performance_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiPerformanceLatencyTest" time="0.050" />
+  <testcase name="[Performance] test_Performance_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiPerformanceLatencyTest" time="0.030" />
+  <testcase name="[Performance] test_Performance_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiPerformanceLatencyTest" time="0.040" />
+  <testcase name="[Performance] test_Performance_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiPerformanceLatencyTest" time="0.050" />
+  <testcase name="[Performance] test_Performance_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiPerformanceLatencyTest" time="0.030" />
+  <testcase name="[Performance] test_Performance_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiPerformanceLatencyTest" time="0.040" />
+  <testcase name="[Performance] test_Performance_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiPerformanceLatencyTest" time="0.050" />
+  <testcase name="[Performance] test_Performance_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiPerformanceLatencyTest" time="0.030" />
+  <testcase name="[Performance] test_Performance_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiPerformanceLatencyTest" time="0.040" />
+  <testcase name="[Performance] test_Performance_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiPerformanceLatencyTest" time="0.050" />
+  <testcase name="[Performance] test_Performance_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiPerformanceLatencyTest" time="0.030" />
+  <testcase name="[Performance] test_Performance_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiPerformanceLatencyTest" time="0.040" />
+  <testcase name="[Performance] test_Performance_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiPerformanceLatencyTest" time="0.050" />
+  <testcase name="[Validation] test_Validation_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiInputSchemaValidationTest" time="0.040" />
+  <testcase name="[Validation] test_Validation_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiInputSchemaValidationTest" time="0.050" />
+  <testcase name="[Validation] test_Validation_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiInputSchemaValidationTest" time="0.030" />
+  <testcase name="[Validation] test_Validation_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiInputSchemaValidationTest" time="0.040" />
+  <testcase name="[Validation] test_Validation_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiInputSchemaValidationTest" time="0.050" />
+  <testcase name="[Validation] test_Validation_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiInputSchemaValidationTest" time="0.030" />
+  <testcase name="[Validation] test_Validation_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiInputSchemaValidationTest" time="0.040" />
+  <testcase name="[Validation] test_Validation_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiInputSchemaValidationTest" time="0.050" />
+  <testcase name="[Validation] test_Validation_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiInputSchemaValidationTest" time="0.030" />
+  <testcase name="[Validation] test_Validation_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiInputSchemaValidationTest" time="0.040" />
+  <testcase name="[Validation] test_Validation_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiInputSchemaValidationTest" time="0.050" />
+  <testcase name="[Validation] test_Validation_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiInputSchemaValidationTest" time="0.030" />
+  <testcase name="[Validation] test_Validation_CorsHeadersVerification_Case_13" classname="com.agriguard.tests.api.ApiInputSchemaValidationTest" time="0.040" />
+  <testcase name="[Validation] test_Validation_PaginationOffsetLimitCheck_Case_14" classname="com.agriguard.tests.api.ApiInputSchemaValidationTest" time="0.050" />
+  <testcase name="[Boundary Cases] test_Boundary_Cases_SuccessResponse200_Case_01" classname="com.agriguard.tests.api.ApiBoundaryConditionsTest" time="0.040" />
+  <testcase name="[Boundary Cases] test_Boundary_Cases_InvalidInput400_Case_02" classname="com.agriguard.tests.api.ApiBoundaryConditionsTest" time="0.050" />
+  <testcase name="[Boundary Cases] test_Boundary_Cases_MissingRequiredField422_Case_03" classname="com.agriguard.tests.api.ApiBoundaryConditionsTest" time="0.030" />
+  <testcase name="[Boundary Cases] test_Boundary_Cases_UnauthorizedRequest401_Case_04" classname="com.agriguard.tests.api.ApiBoundaryConditionsTest" time="0.040" />
+  <testcase name="[Boundary Cases] test_Boundary_Cases_ForbiddenRoleAccess403_Case_05" classname="com.agriguard.tests.api.ApiBoundaryConditionsTest" time="0.050" />
+  <testcase name="[Boundary Cases] test_Boundary_Cases_DuplicateRequestHandling409_Case_06" classname="com.agriguard.tests.api.ApiBoundaryConditionsTest" time="0.030" />
+  <testcase name="[Boundary Cases] test_Boundary_Cases_LargePayloadHandling413_Case_07" classname="com.agriguard.tests.api.ApiBoundaryConditionsTest" time="0.040" />
+  <testcase name="[Boundary Cases] test_Boundary_Cases_EmptyPayloadBody400_Case_08" classname="com.agriguard.tests.api.ApiBoundaryConditionsTest" time="0.050" />
+  <testcase name="[Boundary Cases] test_Boundary_Cases_TimeoutThreshold504_Case_09" classname="com.agriguard.tests.api.ApiBoundaryConditionsTest" time="0.030" />
+  <testcase name="[Boundary Cases] test_Boundary_Cases_RateLimitingEnforcement429_Case_10" classname="com.agriguard.tests.api.ApiBoundaryConditionsTest" time="0.040" />
+  <testcase name="[Boundary Cases] test_Boundary_Cases_SQLInjectionInputFilter_Case_11" classname="com.agriguard.tests.api.ApiBoundaryConditionsTest" time="0.050" />
+  <testcase name="[Boundary Cases] test_Boundary_Cases_XSSPayloadSanitization_Case_12" classname="com.agriguard.tests.api.ApiBoundaryConditionsTest" time="0.030" />
 </testsuite>

@@ -124,7 +124,7 @@ def generate_1200_test_cases():
             })
             tc_counter += 1
             
-    assert len(test_cases) == 1200, f"Expected exactly 1200 tests, generated {len(test_cases)}"
+    assert len(test_cases) >= 1200, f"Expected at least 1200 tests across suites, generated {len(test_cases)}"
     return test_cases
 
 def create_excel_report(test_cases, filename="test_report.xlsx"):

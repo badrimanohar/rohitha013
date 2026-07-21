@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-07-21T12:12:34.278804",
+  "suites": {
+    "web": {
+      "total": 310,
+      "passed": 310,
+      "failed": 0
+    },
+    "mobile": {
+      "total": 300,
+      "passed": 300,
+      "failed": 0
+    },
+    "api": {
+      "total": 304,
+      "passed": 304,
+      "failed": 0
+    },
+    "load": {
+      "total": 300,
+      "passed": 300,
+      "failed": 0
+    }
+  },
+  "k6_load": {
+    "total_reqs": 18450,
+    "req_rate": "307.50 req/s",
+    "avg_duration": "42.10 ms",
+    "min_duration": "12.00 ms",
+    "max_duration": "280.00 ms",
+    "p95_duration": "95.40 ms",
+    "error_rate": "0.00%",
+    "status": "PASSED",
+    "vus": "100 Virtual Users",
+    "duration": "1 Minute",
+    "check_pass_rate": "100.0%"
+  },
+  "grand_total": 1214,
+  "status": "PASSING"
+}

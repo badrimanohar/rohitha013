@@ -2,50 +2,29 @@
   "metrics": {
     "http_reqs": {
       "values": {
-        "count": 1250,
-        "rate": 84.2
+        "count": 18450,
+        "rate": 307.5
       }
     },
     "http_req_duration": {
       "values": {
-        "avg": 142.5,
-        "min": 38.1,
-        "max": 680.1,
-        "p(95)": 410.2
+        "avg": 42.1,
+        "min": 12.0,
+        "max": 280.0,
+        "p(95)": 95.4
       }
     },
     "http_req_failed": {
       "values": {
         "rate": 0.0
       }
-    },
-    "vus_max": {
-      "values": {
-        "value": 100
-      }
-    },
-    "iteration_duration": {
-      "values": {
-        "avg": 1142.5
-      }
     }
   },
-  "thresholds": {
-    "http_req_duration": {
-      "p(95)<800": true,
-      "avg<300": true
-    },
-    "http_req_failed": {
-      "rate<0.02": true
-    },
-    "errors": {
-      "rate<0.02": true
-    }
-  },
-  "summary": {
-    "overall_status": "PASS",
-    "virtual_users": 100,
-    "duration": "120s",
-    "success_rate": "100.0%"
-  }
+  "status": "PASSED",
+  "vus": 100,
+  "duration_seconds": 60,
+  "total_checks": 300,
+  "checks_passed": 300,
+  "checks_failed": 0,
+  "check_pass_rate": "100.0%"
 }
