@@ -12,6 +12,12 @@ import subprocess
 import time
 from datetime import datetime
 
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
+
 def install_dependencies():
     required_packages = ['openpyxl', 'selenium', 'Appium-Python-Client']
     for pkg in required_packages:
@@ -135,7 +141,7 @@ def create_excel_report(test_cases, filename="test_report.xlsx"):
     ws_summary.views.sheetView[0].showGridLines = True
     
     ws_summary.merge_cells("A1:G2")
-    ws_summary["A1"] = "CROP DISEASE DETECTION COMPREHENSIVE VERIFICATION DASHBOARD (1200 TESTS)"
+    ws_summary["A1"] = "AGRIGUARD ENTERPRISE VERIFICATION DASHBOARD (1200 TESTS)"
     ws_summary["A1"].font = Font(name="Calibri", size=16, bold=True, color=WHITE)
     ws_summary["A1"].fill = PatternFill(start_color=PRIMARY_GREEN, end_color=PRIMARY_GREEN, fill_type="solid")
     ws_summary["A1"].alignment = Alignment(horizontal="center", vertical="center")
@@ -194,7 +200,7 @@ def create_excel_report(test_cases, filename="test_report.xlsx"):
 
 def main():
     print("===================================================================")
-    print("🚀 Crop Disease Detection Comprehensive Test Runner (1200 Tests)")
+    print("🚀 AgriGuard Comprehensive Test Runner (1200 Tests)")
     print("===================================================================")
     test_cases = generate_1200_test_cases()
     create_excel_report(test_cases, "test_report.xlsx")

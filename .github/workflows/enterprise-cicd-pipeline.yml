@@ -1,4 +1,4 @@
-name: Crop Disease Detection Complete CI/CD & Testing Workflow
+name: AgriGuard Complete CI/CD & Testing Workflow
 
 on:
   push:

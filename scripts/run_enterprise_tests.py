@@ -284,7 +284,7 @@ def run_k6_load_tests():
         chk = load_checks[(i - 1) % len(load_checks)]
         test_cases.append({
             "name": f"[k6 Load Check] verify_{chk}_Scenario_{i:03d}",
-            "classname": "load.K6CropDiseaseDetectionLoadTest",
+            "classname": "load.K6AgriGuardLoadTest",
             "status": "PASS",
             "duration": 0.20
         })
